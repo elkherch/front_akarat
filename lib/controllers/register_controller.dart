@@ -40,12 +40,6 @@ class SignUpControlerImp extends SignUpControler {
       });
       print(data);
       goTologin();
-      // Vérifier d'abord si data est null
-      // if (data != null) {
-      //   // Vérifier si data['status'] est vrai et rediriger vers la page de connexion
-      //   if (data!['success']) {
-      //   }
-      // }
 
       update();
     } else {

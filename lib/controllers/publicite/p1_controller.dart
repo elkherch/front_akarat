@@ -46,11 +46,9 @@ class Informations1ControllerImp extends Informations1Controller {
   final RxList<String> dropdownValuesNumberI = [
     '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
   ].obs;
-
   final RxList<String> dropdownLabelsNumberI = [
     '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
   ].obs;
-
   @override
   void onInit() {
     selectedAccountE = '24'.obs;

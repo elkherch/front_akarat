@@ -1,13 +1,16 @@
+import 'package:akarat/bien.dart';
 import 'package:akarat/models/biens_immobiliers_models.dart';
+import 'package:akarat/models/details_bien.dart';
 import 'package:akarat/services/AuthService/auth_service.dart';
 import 'package:akarat/services/services.dart';
 import 'package:akarat/views/layouts/showCustom.dart';
+import 'package:akarat/views/screens/annonce.dart';
 import 'package:akarat/views/screens/main_screen.dart';
-import 'package:akarat/views/screens/parametre.dart';
 import 'package:akarat/views/themes/api.dart';
 import 'package:akarat/views/themes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../services/Biens_immobiliersService.dart/biens_immobiliers_service.dart';
@@ -16,6 +19,7 @@ abstract class biensImmobiliersController extends GetxController{
   getBiens();
   rechercher();
   annonce();
+  createFavorie(Biens_immobiliers bien);
   addAnnoce();
   register();
   parametre();
@@ -27,17 +31,24 @@ abstract class biensImmobiliersController extends GetxController{
   creerCompte();
   goTo();
   verifierUtilisateur();
+  goTorechercher(String categorie,String emplacement, String region);
+  getDataListe();
+  goToDetails(int bienId);
 }
 
 class biensImmobiliersControllerImp extends biensImmobiliersController{
   RxList<Biens_immobiliers> biens = <Biens_immobiliers>[].obs;
+   RxList<Details_immobiliers> listeData =<Details_immobiliers>[].obs ;
+   RxList<Biens_immobiliers> rechercheData =<Biens_immobiliers>[].obs ;
+
+  RxBool isLogged = false.obs;
    int? iduser;
   final Myservices myServices = Get.find();
   Map<String, dynamic>? dataLogin;
   late TextEditingController nomUser;
   late TextEditingController password;
   final CrudGet _crudGet = CrudGet();
- 
+  
   late List<Biens_immobiliers> data1 = [];
 
   final AuthService authService = AuthService();
@@ -51,6 +62,7 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
   late List<Biens_immobiliers> data2 = [];
   final ImagePicker imagePicker = ImagePicker();
   final CrudPost _crudPost = CrudPost();
+  bool active =false;
   @override
   selectImage() async{
     final List<XFile>? selectedImage = await imagePicker.pickMultiImage();
@@ -66,10 +78,37 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
   signUp() async {
    Get.toNamed(AppRoutes.register); 
   }
-
-  
-
-
+  @override
+  goToDetails(int bienId) {
+    Get.toNamed(AppRoutes.tripdetails, arguments: {'idbien': bienId});
+  }
+  @override
+  Future<void> getDataListe() async {
+  try {
+    final List<Details_immobiliers> apiDataDetais =
+    await _crudPost.postData(Apilink.liste_favorie, {"iduser": iduser});
+    listeData.assignAll(apiDataDetais);
+    print("+===================================$listeData");
+  } catch (e) {
+    print('Error fetching 09 dataDetais: $e');
+  }
+}
+  @override
+  Future<void> goTorechercher(String categorie,String emplacement, String region) async {
+  try {
+    print(categorie);
+    print(emplacement);
+    print(region);
+    final List<Biens_immobiliers> apiDataRecherche =
+    await _crudPost.rechercheData(Apilink.recherche_bien, {"categorie": categorie,"emplacement":emplacement,"region":region});
+    rechercheData.assignAll(apiDataRecherche);
+    update(['bien_resoult']);
+    Get.toNamed(AppRoutes.recherche);
+    print("+===================================$rechercheData");
+  } catch (e) {
+    print('Error fetching 09 dataDetais: $e');
+  }
+}
   @override
   goToPublicite1() {
     Get.toNamed(AppRoutes.publicite);
@@ -85,6 +124,7 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
     utilisateurExiste.value = myServices.sharedPreferences.getBool("utilisateurExiste") ?? false;
     verifierUtilisateur();
     biens = <Biens_immobiliers>[].obs;
+      getDataListe();
   }
   @override
   void verifierUtilisateur() async {
@@ -100,6 +140,38 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
       print("Error fetching user data: $e");
     }
   }
+   @override
+  Future<void> createFavorie(Biens_immobiliers bien) async {
+  final biensImmobilier = Biens_immobilieHive(
+      bienID: bien.bienID,
+      type_de_bien: bien.type_de_bien,
+      prix: bien.prix,
+      surface: bien.surface, 
+      nombre_de_salles_de_bains: bien.nombre_de_salles_de_bains,
+      nombre_de_salles_de_sals: bien.nombre_de_salles_de_sals,
+      images: bien.images,
+      description: bien.description,
+      emplacement: bien.emplacement,
+      region: bien.region,
+      adresse: bien.adresse,
+      categorie: bien.categorie,
+      id_user: bien.id_user,
+      coordonnees_geographique:bien.coordonnees_geographique,
+      date_publication: bien.date_publication
+    );
+     active=true;
+     update(['trip_bien','bien_home']);
+    final box = await Hive.openBox<Biens_immobilieHive>('biens_immobiliers_box');
+    await box.add(biensImmobilier);
+    Get.snackbar(
+      'Success',
+      'Property added to favorites',
+      backgroundColor: Colors.green,
+      colorText: Colors.white,
+    );
+  
+  }
+   
     @override
   goToCreer() async {
   try {
@@ -189,7 +261,6 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
       print('Error fetching data: $e');
     }
   }
-
  @override
 goTo() async {
   var formdata = formkeyAuth.currentState;
@@ -226,7 +297,8 @@ goTo() async {
   
   @override
   annonce() {
-    Get.toNamed(AppRoutes.annonce);
+    update(['bien_favorie']);
+    Get.off(const Annonce());
   }
   
   @override
@@ -245,4 +317,6 @@ goTo() async {
       showAjouteDaialog();
     }
   }
+  
+  
 }

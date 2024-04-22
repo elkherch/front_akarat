@@ -107,7 +107,12 @@ class Mytranslation extends Translations {
           "101":"اسم المالك",
           "102":"وصف العقار",
           "103":"صالة",
-          "104":"غرف"
+          "104":"غرف",
+          "105":"باريس",
+          "106":"مرسيليا",
+          "107":"ليون",
+          "108":"نيس",
+          "109":"اغلاق"
           
 
         },
@@ -132,7 +137,6 @@ class Mytranslation extends Translations {
           "18": "Facebook",
           "19": "Type de compte",
           "20":"Connexion",
-          
           "21" : "Nouvel utilisateur? ",
            "22":"return",
            "23":"Suivant",
@@ -202,13 +206,13 @@ class Mytranslation extends Translations {
   "87":"Dar-Naim",
   "88":"Arafat",
   "89":"Cité Plage",
-  "90":"Pour pouvoir télécharger des annonces dans l'application immobilière, veuillez vous connecter.",
-   "91":"vous devrez créer un compte avant d’ajoute une bien",
-   "92":"propriétaire",
-   "93":"agence immobilière",
-   "94":"Un autre",
-   "95":"Des détails plus clairs",
-      "96":"Type de propriété",
+         "90":"Pour pouvoir télécharger des annonces dans l'application immobilière, veuillez vous connecter.",
+          "91":"vous devrez créer un compte avant d’ajoute une bien",
+          "92":"propriétaire",
+          "93":"agence immobilière",
+          "94":"Un autre",
+          "95":"Des détails plus clairs",
+           "96":"Type de propriété",
           "97":"Parking intérieur",
           "98":"Superficie du terrain",
           "99":"Date",
@@ -216,7 +220,12 @@ class Mytranslation extends Translations {
           "101":"Nom du propriétaire",
           "102":"description de bien",
           "103":"salon",
-          "104":"chambre"
+          "104":"chambre",
+          "105":"Paris",
+          "106":"Marseille",
+          "107":"Lyon",
+          "108":"Nice",
+          "109":"Fermer"
         }
       };
 }

@@ -33,6 +33,30 @@ class CrudPost {
   }
 
   }
+  Future<List<Biens_immobiliers>> rechercheData(String url, Map data) async {
+  try {
+    var response = await http.post(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: json.encode(data),
+    );
+    
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print(response.body);
+      List<dynamic> jsonData = json.decode(response.body)['list_biens'];
+      List<Biens_immobiliers> data = jsonData.map((json) => Biens_immobiliers.fromJson(json)).toList();
+      return data;
+    } else {
+      throw "Error during HTTP request: ${response.statusCode}";
+    }
+  } catch (e) {
+    throw "Error during HTTP request: $e";
+  }
+
+  }
   
   void updateUserData() {
   var controller = Get.find<biensImmobiliersControllerImp>();

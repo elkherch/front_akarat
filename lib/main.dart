@@ -1,5 +1,6 @@
 import 'package:akarat/controllers/biens_immobiliers_controllers.dart';
 import 'package:akarat/controllers/publicite/p1_controller.dart';
+import 'package:akarat/services/iniHive.dart';
 import 'package:akarat/services/services.dart';
 import 'package:akarat/views/layouts/changelangue.dart';
 import 'package:akarat/views/layouts/translation.dart';
@@ -17,6 +18,7 @@ import 'package:akarat/views/screens/publicite/p2.dart';
 import 'package:akarat/views/screens/publicite/p3.dart';
 import 'package:akarat/views/screens/rechercher_immobilie.dart';
 import 'package:akarat/views/screens/register.dart';
+import 'package:akarat/views/screens/resoult.dart';
 import 'package:akarat/views/themes/routes.dart';
 import 'package:akarat/views/widgets/trip_detail_biens.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +30,7 @@ void main() async {
   await InitialServices();
   Get.put(CrudGet());
   Get.put(CrudPost());
+  await initHive();
   Get.put(Mytranslation());
   Get.put(biensImmobiliersControllerImp());
   Get.put(Informations1ControllerImp());
@@ -64,6 +67,8 @@ class MyApp extends StatelessWidget {
         GetPage(name: AppRoutes.publicite, page: () => Informations1()),
                 GetPage(name: AppRoutes.publicite2, page: () => Informations2()),
         GetPage(name: AppRoutes.publicite3, page: () =>const Informations3()),
+        GetPage(name: AppRoutes.recherche, page: () =>const ReloultScreen()),
+
 
 
       ],

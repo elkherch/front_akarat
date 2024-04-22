@@ -14,6 +14,8 @@ class AppRoutes{
   static const publicite = "/info1";
   static const publicite2 = "/info2";
   static const publicite3 = "/info3";
+  static const recherche = "/recherche";
+
 
 
 }

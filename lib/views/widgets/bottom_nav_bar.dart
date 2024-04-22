@@ -31,19 +31,18 @@ class BottomNavBar extends StatelessWidget {
         selectedItemColor: AppColor.primaryColor,
         unselectedItemColor: AppColor.whiteColor,
         items:  [
-          BottomNavigationBarItem(
-            icon:const Icon(Icons.home),
-            label: '2'.tr,
-          ),
-          
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.favorite),
-            label: '3'.tr,
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.location_on),
-            label: '4'.tr,
-          ),
+           BottomNavigationBarItem(
+              icon: const ImageIcon(AssetImage('assets/icons/house.png'),size: 20,),
+              label: '2'.tr,
+            ),
+            BottomNavigationBarItem(
+              icon: const ImageIcon(AssetImage('assets/icons/heart.png'),size: 20,),
+              label: '3'.tr,
+            ),
+            BottomNavigationBarItem(
+              icon: const ImageIcon(AssetImage('assets/icons/placeholder.png'),size: 20,),
+              label: '4'.tr,
+            ),
         ],
       ),
     );

@@ -1,14 +1,11 @@
 // ignore_for_file: unused_local_variable, unnecessary_brace_in_string_interps
 
-import 'package:akarat/controllers/biens_immobiliers_controllers.dart';
 import 'package:akarat/controllers/trip_bien_controller.dart';
 import 'package:akarat/views/themes/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class TripBiens extends StatelessWidget {
-  final void Function()? onpressed;
-
+class TripAnnonce extends StatelessWidget {
   final String? imageUrl;
   final String title;
   final String prix;
@@ -18,24 +15,21 @@ class TripBiens extends StatelessWidget {
   final int nombre_de_salles_de_bains;
   final int nombre_de_salles_de_sals;
   
-   TripBiens({
+  const TripAnnonce({
     Key? key,
     required this.imageUrl,
     required this.title, 
     required this.surface, 
     required this.lien, 
     required this.prix,
-    required this.idbien,
-     required this.nombre_de_salles_de_bains, required this.nombre_de_salles_de_sals, this.onpressed,
+    required this.idbien, required this.nombre_de_salles_de_bains, required this.nombre_de_salles_de_sals,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    biensImmobiliersControllerImp controller = Get.put(biensImmobiliersControllerImp());
+    TripBienControllerImp controller = Get.put(TripBienControllerImp());
     
-    return GetBuilder<biensImmobiliersControllerImp>(
-      id: "trip_bien",
-      init: controller,
+    return GetBuilder<TripBienControllerImp>(
       builder: (controller) {
         return InkWell(
           onTap: () {
@@ -87,14 +81,6 @@ class TripBiens extends StatelessWidget {
                                   style: const TextStyle(color: AppColor.black, fontSize: 16),
                             ),
                           ),
-                        const  Spacer(),
-                        IconButton(
-                          onPressed: onpressed,
-                           icon:  Icon(
-                            controller.active ? Icons.favorite : Icons.favorite_border_outlined,
-                            color: AppColor.backgroundcolor,
-                            )
-                           )
                         ],
                       ),
                       Padding(

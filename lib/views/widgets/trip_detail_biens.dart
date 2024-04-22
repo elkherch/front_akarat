@@ -46,7 +46,11 @@ class TripDetailsBiens extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Container(
+                    Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(1),
+                       ),
+                     elevation: 4,
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Column(
@@ -55,7 +59,7 @@ class TripDetailsBiens extends StatelessWidget {
               
                             const SizedBox(height: 10),
                             Row(children: [ Text("${bien.type_de_bien}", style: Theme.of(context).textTheme.bodyText2,),],),
-                            Row(children: [Text("${bien.prix} MRU", style:  Theme.of(context).textTheme.bodyText2,)],),
+                            Row(children: [Text("${bien.prix}", style:  Theme.of(context).textTheme.bodyText2,)],),
                             const SizedBox(height: 10),
                   
                             const Divider(), 
@@ -75,15 +79,47 @@ class TripDetailsBiens extends StatelessWidget {
                              ),
                            ],
                          ),
+                            
                             const SizedBox(height: 10),
                             Row(
                               children: [
-                                 Text('98'.tr, style:  Theme.of(context).textTheme.bodyText2,),
+                                 Text('28'.tr, style:  Theme.of(context).textTheme.bodyText2,),
+                                const Spacer(),
+                                Text("${bien.emplacement}", style:  Theme.of(context).textTheme.bodyText2,)
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                 Text('29'.tr, style:  Theme.of(context).textTheme.bodyText2,),
+                                const Spacer(),
+                                Text("${bien.adresse}", style:  Theme.of(context).textTheme.bodyText2,)
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                 Text('30'.tr, style:  Theme.of(context).textTheme.bodyText2,),
                                 const Spacer(),
                                 Text("${bien.surface}", style:  Theme.of(context).textTheme.bodyText2,)
                               ],
                             ),
-                            
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                 Text('103'.tr, style:  Theme.of(context).textTheme.bodyText2,),
+                                const Spacer(),
+                                Text("${bien.nombre_de_salles_de_sals}", style:  Theme.of(context).textTheme.bodyText2,)
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                 Text('104'.tr, style:  Theme.of(context).textTheme.bodyText2,),
+                                const Spacer(),
+                                Text("${bien.nombre_de_salles_de_bains}", style:  Theme.of(context).textTheme.bodyText2,)
+                              ],
+                            ),
                             const SizedBox(height: 10),
                            
                             const SizedBox(height: 10),
@@ -100,11 +136,12 @@ class TripDetailsBiens extends StatelessWidget {
                         ),
                       ),
                     ),
+                    SizedBox(height: 20,),
                      Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(1),
                        ),
-                elevation: 4,
+                     elevation: 4,
                       child: Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: Column(

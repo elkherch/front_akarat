@@ -29,14 +29,14 @@ void showAjouteDaialog (){
           onPressed: () {
             Get.toNamed(AppRoutes.register);
           },
-          child: Text("S'inscrire" ,style: Theme.of(context).textTheme.headline4,),
+          child: Text('84'.tr ,style: Theme.of(context).textTheme.headline4,),
         ),
         Spacer(),
           ElevatedButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text("Fermer" ,style: Theme.of(context).textTheme.headline4,),
+          child: Text('109'.tr ,style: Theme.of(context).textTheme.headline4,),
         ),
         ],)
       ],

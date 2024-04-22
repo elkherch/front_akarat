@@ -1,5 +1,3 @@
-// ignore_for_file: deprecated_member_use
-
 import 'package:akarat/views/themes/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +7,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Function()? onSearchPressed;
   final bool isFrench;
 
-  CustomAppBar( {
+  CustomAppBar({
     required this.title,
     required this.onDrawerPressed,
     required this.onSearchPressed,
@@ -18,37 +16,55 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      backgroundColor: AppColor.backgroundcolor,
-      centerTitle: true,
-      leading: isFrench
-          ? IconButton(
-              icon: const Icon(Icons.search,color: AppColor.whiteColor,),
-              onPressed: onSearchPressed,
+    return PreferredSize(
+      
+      preferredSize: const Size.fromHeight(kToolbarHeight + 30), // Ajustez la hauteur ici
+      child: AppBar(
+        backgroundColor: AppColor.backgroundcolor,
+        centerTitle: true,
+        elevation: 0,
+        leading: isFrench
+            ? Column(
+              children: [
+                IconButton(
+                    icon: const Icon(Icons.search, color: AppColor.whiteColor,size: 40,),
+                    onPressed: onSearchPressed,
+                  ),
+              ],
             )
-          : IconButton(
-              icon: const Icon(Icons.menu, color: AppColor.whiteColor,),
-              onPressed: onDrawerPressed,
-            ),
-          title: Text(title, style:const TextStyle(
+            : IconButton(
+                icon: const Icon(Icons.menu, color: AppColor.whiteColor),
+                onPressed: onDrawerPressed,
+              ),
+        title: Text(
+          title,
+          style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            color: AppColor.whiteColor
-          )),
+            color: AppColor.whiteColor,
+          ),
+        ),
         actions: <Widget>[
-        isFrench
-            ? IconButton(
-                icon: const Icon(Icons.menu,color: AppColor.whiteColor,),
-                onPressed: onDrawerPressed,
-              )
-            : IconButton(
-                icon: const Icon(Icons.search, color: AppColor.whiteColor,),
-                onPressed: onSearchPressed,
-              ),
-      ],
+          
+          isFrench
+              ? IconButton(
+                  icon: const Icon(Icons.menu, color: AppColor.whiteColor),
+                  onPressed: onDrawerPressed,
+                )
+              : IconButton(
+                  icon: const Icon(Icons.search, color: AppColor.whiteColor),
+                  onPressed: onSearchPressed,
+                ),
+        ],
+        // bottom: const PreferredSize(
+          
+        //   preferredSize: Size.fromHeight(20),
+        //   child: SizedBox(height: 10),
+        // ),
+      ),
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight + 30);
 }

@@ -29,6 +29,7 @@ class _MainScreenState extends State<MainScreen> {
       init: biensImmobiliersControllerImp(),
       builder: (context) {
         return Scaffold(
+          backgroundColor: AppColor.backgroundcolor,
           key: _scaffoldKey,
           appBar: CustomAppBar(
             title: "1".tr,
@@ -50,10 +51,19 @@ class _MainScreenState extends State<MainScreen> {
           ),
           body: GetBuilder<biensImmobiliersControllerImp>(
             builder: (controller) {
-              return _buildBody(_currentIndex);
+              return SafeArea(
+                child: Container(
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(20)), // BorderRadius sur les deux côtés en haut
+                    color: Colors.white, // Couleur du fond du container
+                  ),
+                  child: _buildBody(_currentIndex),
+                ),
+              );
             },
           ),
           drawer: AppDrawer(
+            
             drawerItems: [
               DrawerItem(
                 title: '5'.tr,
