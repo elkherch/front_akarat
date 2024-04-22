@@ -11,81 +11,81 @@ class FavorieScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   biensImmobiliersControllerImp controller = Get.find<biensImmobiliersControllerImp>();
-
-    return Container(
-      child:GetBuilder<biensImmobiliersControllerImp>(
-          id: "bien_favorie",
-          init: controller,
-          builder: (controller) {
-            return Column(
-              children: [
-                Expanded(
-                  child: FutureBuilder(
-                    future: _getFavorieBiens(),
-                    builder: (context, AsyncSnapshot<List<Biens_immobilieHive>> snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasError) {
-                        return Center(child: Text('Error: ${snapshot.error}'));
-                      } else {
-                        final favorieBiens = snapshot.data ?? []; // Liste des biens favoris
-                        return ListView.builder(
-        itemCount: favorieBiens.length,
-        itemBuilder: (context, index) {
-      final bien = favorieBiens[index];
-      String? imageUrl;
-      if (bien.images != null && bien.images!.isNotEmpty) {
-        String imagePath = bien.images![0];
-        if (!imagePath.startsWith("http://") && !imagePath.startsWith("https://")) {
-          imageUrl = "http://khdev.pythonanywhere.com" + imagePath;
-        } else {
-          imageUrl = imagePath; // L'image a déjà une URL complète
-        }
-      }
-      return Card(
-        child: Column(children: [
-          Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left:12.0,top: 10),
-                              child: Text(
-                                    "${bien.type_de_bien}",
-                                    style: const TextStyle(color: AppColor.black, fontSize: 16),
-                              ),
-                            ),
-                            IconButton(onPressed: (){_deleteFavorieBiens(bien.bienID);}, icon: Icon(Icons.favorite))
-                          ],
-                        ),
-        ],),
-        );
-        },
-      );
-      
-                      }
-                    },
-                  ),
+    biensImmobiliersControllerImp controller = Get.find<biensImmobiliersControllerImp>();
+    return Scaffold(
+      body: GetBuilder<biensImmobiliersControllerImp>(
+        id: "bien_favorie",
+        init: controller,
+        builder: (controller) {
+          return Column(
+            children: [
+              Expanded(
+                child: FutureBuilder(
+                  future: _getFavorieBiens(),
+                  builder: (context, AsyncSnapshot<List<Biens_immobilieHive>> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (snapshot.hasError) {
+                      return Center(child: Text('Error: ${snapshot.error}'));
+                    } else {
+                      final favorieBiens = snapshot.data ?? []; // Liste des biens favoris
+                      return ListView.builder(
+                        itemCount: favorieBiens.length,
+                        itemBuilder: (context, index) {
+                          final bien = favorieBiens[index];
+                          String? imageUrl;
+                          if (bien.images != null && bien.images!.isNotEmpty) {
+                            String imagePath = bien.images![0];
+                            if (!imagePath.startsWith("http://") && !imagePath.startsWith("https://")) {
+                              imageUrl = "http://khdev.pythonanywhere.com" + imagePath;
+                            } else {
+                              imageUrl = imagePath; // L'image a déjà une URL complète
+                            }
+                          }
+                          return TripBiens(
+                            onpressed: () {
+                              _deleteFavorieBiens(bien.bienID);
+                              // Pas besoin de mettre à jour ici car GetBuilder le fait automatiquement
+                            },
+                            imageUrl: imageUrl,
+                            title: bien.type_de_bien ?? "default value",
+                            surface: "${bien.surface ?? "default value"}",
+                            lien: "${bien.adresse ?? "default value"}",
+                            prix: "${bien.prix ?? "default value"}",
+                            idbien: bien.bienID ?? 0,
+                            nombre_de_salles_de_bains: bien.nombre_de_salles_de_bains ?? 0,
+                            nombre_de_salles_de_sals: bien.nombre_de_salles_de_sals ?? 0,
+                          );
+                        },
+                      );
+                    }
+                  },
                 ),
-              ],
-            );
-          },
-        )
+              ),
+            ],
+          );
+        },
+      ),
     );
-      
-    
   }
 
   Future<List<Biens_immobilieHive>> _getFavorieBiens() async {
     final box = await Hive.openBox<Biens_immobilieHive>('biens_immobiliers_box');
     return box.values.toList();
   }
+
   Future<void> _deleteFavorieBiens(int? bienID) async {
-  final box = await Hive.openBox<Biens_immobilieHive>('biens_immobiliers_box');
-  print('Boîte ouverte: $box'); // Afficher la boîte ouverte
-  print('Contenu de la boîte avant la suppression: ${box.values.toList()}'); // Afficher le contenu de la boîte avant la suppression
-  await box.delete(bienID);
-  print('Contenu de la boîte après la suppression: ${box.values.toList()}'); // Afficher le contenu de la boîte après la suppression
-}
-
-
+    final box = await Hive.openBox<Biens_immobilieHive>('biens_immobiliers_box');
+    await box.delete(bienID);
+    Get.defaultDialog(
+      title: "Success",
+      middleText: "Bien supprimé des favoris avec succès",
+      confirm: ElevatedButton(
+        onPressed: () {
+          Get.back(); // Fermer la boîte de dialogue
+        },
+        child: Text('OK'),
+      ),
+    );
+  }
 }

@@ -14,6 +14,7 @@ class AuthService {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
+
       body: json.encode(data),
     );
 
@@ -84,7 +85,6 @@ class AuthService {
 void updateUserData(int userId) {
   // Récupérer le contrôleur associé à la page Paramètre
   var controller = Get.find<biensImmobiliersControllerImp>();
-  // var controllerp = Get.find<Informations1ControllerImp>();
   // var controllerParametre = Get.find<ParametreControllerImp>();
   // Mettre à jour les données utilisateur dans le contrôleur
   controller.iduser = userId;

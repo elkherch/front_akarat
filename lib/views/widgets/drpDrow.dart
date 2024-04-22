@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 class DropDownAjoute extends StatelessWidget {
   final String value;
   final void Function(String?)? onChanged;
-  final RxList<String> values;
-  final RxList<String> labels;
+  final List<String> values;
+  final List<String> labels;
 
   const DropDownAjoute({
     required this.value,
@@ -35,11 +35,11 @@ class DropDownAjoute extends StatelessWidget {
         ),
       ),
       value: value,
-      items: RxList.generate(
+      items: List.generate(
         values.length,
         (index) => DropdownMenuItem(
           value: values[index],
-          child: Text(labels[index]), // Utilisation de value pour accéder au contenu de l'élément RxList
+          child: Text(labels[index]), // Utilisation de value pour accéder au contenu de l'élément List
         ),
       ),
       onChanged: onChanged,

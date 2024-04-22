@@ -23,7 +23,6 @@ class ParametreControllerImp extends ParametreController {
     super.onInit();
     verifierUtilisateur();
   }
-
   @override
   void verifierUtilisateur() async {
     try {
