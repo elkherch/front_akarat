@@ -16,15 +16,15 @@ ValideInput(String val,int min ,int max ,String type){
   }
   if(type == "phone"){
     if(!GetUtils.isPhoneNumber(val)){
-      return "numerotel d'utilisateur non valide";
+      return "numero tel d'utilisateur non valide";
     }
   }
 
   if(val.length < min) {
-      return "champ ne peut pas etre inferieur $min";
+      return "Champ ne peut pas etre inferieur $min";
   }
 
   if(val.length > max) {
-      return "champ ne peut pas etre superieur $max";
+      return "Champ ne peut pas etre superieur $max";
   }
 }

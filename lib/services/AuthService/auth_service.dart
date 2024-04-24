@@ -85,13 +85,14 @@ class AuthService {
 void updateUserData(int userId) {
   // Récupérer le contrôleur associé à la page Paramètre
   var controller = Get.find<biensImmobiliersControllerImp>();
-  // var controllerParametre = Get.find<ParametreControllerImp>();
+  var controllerParametre = Get.find<Informations1ControllerImp>();
+  var controllerp = Get.find<ParametreControllerImp>();
   // Mettre à jour les données utilisateur dans le contrôleur
-  controller.iduser = userId;
-  // controllerParametre.iduser = userId;
-  // controllerp.iduser = userId;
-
+   controller.iduser = userId;
+   controllerParametre.iduser = userId;
+  controllerp.iduser = userId;
+  controllerp.update(['bien_parametre']);
   // Déclencher une mise à jour de l'interface utilisateur pour refléter les nouvelles données utilisateur
-  // controllerParametre.update(['bien_parametre']);
+  controllerParametre.update(['bien_p1']);
 }
 }

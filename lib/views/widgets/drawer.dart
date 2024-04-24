@@ -11,7 +11,7 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      width: 300,
+      width: 360,
       child: Column(
         children: <Widget>[
           Expanded(
@@ -45,42 +45,6 @@ class AppDrawer extends StatelessWidget {
               ],
             ),
           ),
-          // Row(
-          //   children: [
-          //     Expanded(
-          //       child: Container(
-          //         margin: const EdgeInsets.symmetric(vertical: 60, horizontal: 10),
-          //         decoration: BoxDecoration(
-          //           color: AppColor.backgroundcolor,
-          //           borderRadius: BorderRadius.circular(10),
-          //         ),
-          //         child: ListTile(
-          //           title: Text("Francais", style: Theme.of(context).textTheme.headline2,),
-          //           onTap: () {
-          //             Navigator.pop(context);
-          //             // Action lorsque vous appuyez sur le bouton de langue français
-          //           },
-          //         ),
-          //       ),
-          //     ),
-          //     Expanded(
-          //       child: Container(
-          //         margin: const EdgeInsets.symmetric(vertical: 60, horizontal: 10),
-          //         decoration: BoxDecoration(
-          //           color:AppColor.backgroundcolor,
-          //           borderRadius: BorderRadius.circular(10),
-          //         ),
-          //         child: ListTile(
-          //           title: Text("Arabe", style: Theme.of(context).textTheme.headline2,),
-          //           onTap: () {
-          //             Navigator.pop(context);
-          //             // Action lorsque vous appuyez sur le bouton de langue arabe
-          //           },
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // ),
         ],
       ),
     );

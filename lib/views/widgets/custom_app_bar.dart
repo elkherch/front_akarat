@@ -18,7 +18,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return PreferredSize(
       
-      preferredSize: const Size.fromHeight(kToolbarHeight + 30), // Ajustez la hauteur ici
+      preferredSize: const Size.fromHeight(kToolbarHeight + 20), // Ajustez la hauteur ici
       child: AppBar(
         backgroundColor: AppColor.backgroundcolor,
         centerTitle: true,
@@ -27,44 +27,46 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             ? Column(
               children: [
                 IconButton(
-                    icon: const Icon(Icons.search, color: AppColor.whiteColor,size: 40,),
+                    icon: const Icon(Icons.search, color: AppColor.whiteColor,),
                     onPressed: onSearchPressed,
                   ),
               ],
             )
             : IconButton(
-                icon: const Icon(Icons.menu, color: AppColor.whiteColor),
+                icon: const Icon(Icons.menu, color: AppColor.whiteColor,),
                 onPressed: onDrawerPressed,
               ),
-        title: Text(
-          title,
-          style: const TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            color: AppColor.whiteColor,
-          ),
+        title:  Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/icons/logoapp.png',
+              width: 150,
+              height: 150,
+            ),
+          ],
         ),
         actions: <Widget>[
           
           isFrench
               ? IconButton(
-                  icon: const Icon(Icons.menu, color: AppColor.whiteColor),
+                  icon: const Icon(Icons.menu, color: AppColor.whiteColor,),
                   onPressed: onDrawerPressed,
                 )
               : IconButton(
-                  icon: const Icon(Icons.search, color: AppColor.whiteColor),
+                  icon: const Icon(Icons.search, color: AppColor.whiteColor,),
                   onPressed: onSearchPressed,
                 ),
         ],
-        // bottom: const PreferredSize(
+        bottom: const PreferredSize(
           
-        //   preferredSize: Size.fromHeight(20),
-        //   child: SizedBox(height: 10),
-        // ),
+          preferredSize: Size.fromHeight(20),
+          child: SizedBox(height: 2),
+        ),
       ),
     );
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight + 30);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight + 10);
 }

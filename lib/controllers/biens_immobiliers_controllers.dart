@@ -1,13 +1,19 @@
+// ignore_for_file: camel_case_types
+
 import 'package:akarat/bien.dart';
 import 'package:akarat/models/biens_immobiliers_models.dart';
 import 'package:akarat/models/details_bien.dart';
 import 'package:akarat/services/AuthService/auth_service.dart';
 import 'package:akarat/services/services.dart';
+import 'package:akarat/utils/handlingdata.dart';
+import 'package:akarat/utils/statusRequest.dart';
 import 'package:akarat/views/layouts/showCustom.dart';
 import 'package:akarat/views/screens/annonce.dart';
 import 'package:akarat/views/screens/main_screen.dart';
 import 'package:akarat/views/themes/api.dart';
 import 'package:akarat/views/themes/routes.dart';
+import 'package:akarat/views/widgets/trip_detail_biens.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
@@ -21,6 +27,8 @@ abstract class biensImmobiliersController extends GetxController{
   annonce();
   createFavorie(Biens_immobiliers bien);
   addAnnoce();
+  choixLangue();
+
   register();
   parametre();
   addannonce();
@@ -33,7 +41,7 @@ abstract class biensImmobiliersController extends GetxController{
   verifierUtilisateur();
   goTorechercher(String categorie,String emplacement, String region);
   getDataListe();
-  goToDetails(int bienId);
+  goToDetails(int bienId,String title);
 }
 
 class biensImmobiliersControllerImp extends biensImmobiliersController{
@@ -50,7 +58,7 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
   final CrudGet _crudGet = CrudGet();
   
   late List<Biens_immobiliers> data1 = [];
-
+  
   final AuthService authService = AuthService();
   RxBool utilisateurExiste = false.obs;
   RxList<Map<String, dynamic>> dataParametre = <Map<String, dynamic>>[].obs; // Utilisez RxList<Map<String, dynamic>>
@@ -62,6 +70,8 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
   late List<Biens_immobiliers> data2 = [];
   final ImagePicker imagePicker = ImagePicker();
   final CrudPost _crudPost = CrudPost();
+     StatusRequest statusRequest = StatusRequest.none;
+
   bool active =false;
   @override
   selectImage() async{
@@ -78,19 +88,34 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
   signUp() async {
    Get.toNamed(AppRoutes.register); 
   }
+  
   @override
-  goToDetails(int bienId) {
-    Get.toNamed(AppRoutes.tripdetails, arguments: {'idbien': bienId});
+  goToDetails(int bienId, String title) {
+    Get.to( TripDetailsBiens(title: title,) , arguments: {'idbien': bienId});
   }
   @override
   Future<void> getDataListe() async {
+  statusRequest = StatusRequest.loading;
+
   try {
-    final List<Details_immobiliers> apiDataDetais =
-    await _crudPost.postData(Apilink.liste_favorie, {"iduser": iduser});
-    listeData.assignAll(apiDataDetais);
-    print("+===================================$listeData");
+    final Either<StatusRequest, List<Details_immobiliers>> apiDataDetailsEither =
+        await _crudPost.postData(Apilink.liste_favorie, {"iduser": iduser});
+
+    apiDataDetailsEither.fold(
+      (failure) {
+        statusRequest = StatusRequest.offlinefailure;
+        print('Request failed with status: $failure');
+      },
+      (data) {
+        statusRequest = StatusRequest.success;
+        listeData.assignAll(data);
+        print('+===================================$listeData');
+      },
+    );
   } catch (e) {
-    print('Error fetching 09 dataDetais: $e');
+    // Gérer les erreurs ici
+    print('Error fetching dataDetails: $e');
+    statusRequest = StatusRequest.failure;
   }
 }
   @override
@@ -99,12 +124,23 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
     print(categorie);
     print(emplacement);
     print(region);
-    final List<Biens_immobiliers> apiDataRecherche =
+    statusRequest = StatusRequest.loading;
+
+    final Either<StatusRequest, List<Biens_immobiliers>> apiDataRecherche =
     await _crudPost.rechercheData(Apilink.recherche_bien, {"categorie": categorie,"emplacement":emplacement,"region":region});
-    rechercheData.assignAll(apiDataRecherche);
-    update(['bien_resoult']);
-    Get.toNamed(AppRoutes.recherche);
-    print("+===================================$rechercheData");
+    apiDataRecherche.fold(
+      (failure) {
+        statusRequest = StatusRequest.offlinefailure;
+        print('Request failed with status: $failure');
+      },
+      (data) {
+        statusRequest = StatusRequest.success;
+        rechercheData.assignAll(data);
+        update(['bien_resoult']);
+         Get.toNamed(AppRoutes.recherche);
+        print('+===================================$listeData');
+      },
+    );
   } catch (e) {
     print('Error fetching 09 dataDetais: $e');
   }
@@ -116,15 +152,16 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
 
   @override
   void onInit() {
-    super.onInit();   
+    super.onInit();  
+    getBiens();
     nomUser = TextEditingController();
     password = TextEditingController();
-    getBiens();
     iduser = myServices.sharedPreferences.getInt("iduser") ?? 0;
     utilisateurExiste.value = myServices.sharedPreferences.getBool("utilisateurExiste") ?? false;
     verifierUtilisateur();
     biens = <Biens_immobiliers>[].obs;
-      getDataListe();
+    getDataListe();
+    update(['bien_home']);
   }
   @override
   void verifierUtilisateur() async {
@@ -163,18 +200,13 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
      update(['trip_bien','bien_home']);
     final box = await Hive.openBox<Biens_immobilieHive>('biens_immobiliers_box');
     await box.add(biensImmobilier);
-    Get.snackbar(
-      'Success',
-      'Property added to favorites',
-      backgroundColor: Colors.green,
-      colorText: Colors.white,
-    );
-  
+    
   }
    
     @override
   goToCreer() async {
   try {
+    if(imageXFileList.isNotEmpty){
     String typeAnnonceT = Get.arguments['type_de_bien'].toString();
     String descriptionT = Get.arguments['description'].toString();
     String prixT = Get.arguments['prix'].toString();
@@ -232,6 +264,9 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
       
       // Utilisez Get.off pour aller à la nouvelle page et remplacer l'ancienne dans la pile de navigation
       Get.off(const MainScreen());
+    }else{
+      print("-------------------------------------");
+    }
     } else {
       print('User does not exist....');
     }
@@ -252,11 +287,25 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
   }
  @override
   Future<void> getBiens() async {
+      statusRequest = StatusRequest.loading;
+
     try {
-      List<Biens_immobiliers> newData = await _crudGet.getData(Apilink.list_biens);
-      biens.assignAll(newData);
-      update();
-      print("Data from API:=========================================== $biens['images']");
+      final Either<StatusRequest, List<Biens_immobiliers>> newData = await _crudGet.getData(Apilink.list_biens);
+      newData.fold(
+      (failure) {
+        statusRequest = StatusRequest.offlinefailure;
+        print('Request failed with status: $failure');
+        getBiens();
+
+      },
+      (data) {
+        statusRequest = StatusRequest.success;
+        biens.assignAll(data);
+        update();
+        update(['bien_home']);
+      },
+    );
+   
     } catch (e) {
       print('Error fetching data: $e');
     }
@@ -277,7 +326,6 @@ goTo() async {
       // Mettre à jour l'état du contrôleur après la connexion
       authService.updateUserData(dataLogin!['user_id']);
       update(['bien_parametre']);
-      // Naviguer vers l'écran des paramètres
       Get.off(const MainScreen());
 
     }
@@ -298,7 +346,7 @@ goTo() async {
   @override
   annonce() {
     update(['bien_favorie']);
-    Get.off(const Annonce());
+    Get.toNamed(AppRoutes.annonce);
   }
   
   @override
@@ -311,12 +359,16 @@ goTo() async {
   }
  @override
   addannonce() {
+    update(['bien_p1']);
     if (iduser != 0) {
+      
      Get.toNamed(AppRoutes.publicite);
     }else{
       showAjouteDaialog();
     }
   }
-  
-  
+  @override
+  choixLangue() {
+    Get.toNamed(AppRoutes.langue);
+  }
 }

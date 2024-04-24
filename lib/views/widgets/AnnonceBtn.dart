@@ -12,7 +12,7 @@ class AnnonceBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialButton(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         onPressed:onpressed,
       color: AppColor.backgroundcolor,
       child: Text(text, style: Theme.of(context).textTheme.headline2,),

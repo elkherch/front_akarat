@@ -19,7 +19,9 @@ class ReloultScreen extends StatelessWidget {
           return Column(
             children: [
               Expanded(
-                child: ListView.builder(
+                child:controller.rechercheData.isEmpty
+                      ?  Center(child: Text('180'.tr))
+                : ListView.builder(
                   itemCount: controller.rechercheData.length,
                   itemBuilder: (context, index) {
                     final bien = controller.rechercheData[index];

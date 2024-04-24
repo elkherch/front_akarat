@@ -5,58 +5,67 @@ import 'dart:convert';
 import 'package:akarat/controllers/biens_immobiliers_controllers.dart';
 import 'package:akarat/models/biens_immobiliers_models.dart';
 import 'package:akarat/models/details_bien.dart';
+import 'package:akarat/utils/statusRequest.dart';
+import 'package:akarat/views/layouts/checkinternet.dart';
+import 'package:dartz/dartz.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart'  as http;
 import 'package:image_picker/image_picker.dart';
 class CrudPost {
-  Future<List<Details_immobiliers>> postData(String url, Map data) async {
+  Future<Either<StatusRequest, List<Details_immobiliers>>> postData(String url, Map data) async {
   try {
-    var response = await http.post(
-      Uri.parse(url),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: json.encode(data),
-    );
-    
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      print(response.body);
-      List<dynamic> jsonData = json.decode(response.body)['list_biens'];
-      List<Details_immobiliers> data = jsonData.map((json) => Details_immobiliers.fromJson(json)).toList();
-      return data;
+    if (await CheckInternet()) {
+      var response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: json.encode(data),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        List<dynamic> jsonData = json.decode(response.body)['list_biens'];
+        List<Details_immobiliers> details = jsonData.map((json) => Details_immobiliers.fromJson(json)).toList();
+        return Right(details);
+      } else {
+        return Left(StatusRequest.serveurfailure);
+      }
     } else {
-      throw "Error during HTTP request: ${response.statusCode}";
+      return Left(StatusRequest.offlinefailure);
     }
   } catch (e) {
-    throw "Error during HTTP request: $e";
+     throw "Error during HTTP request: $e";
   }
 
-  }
-  Future<List<Biens_immobiliers>> rechercheData(String url, Map data) async {
+
+}
+  Future<Either<StatusRequest, List<Biens_immobiliers>>> rechercheData(String url, Map data) async {
   try {
-    var response = await http.post(
-      Uri.parse(url),
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: json.encode(data),
-    );
-    
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      print(response.body);
-      List<dynamic> jsonData = json.decode(response.body)['list_biens'];
-      List<Biens_immobiliers> data = jsonData.map((json) => Biens_immobiliers.fromJson(json)).toList();
-      return data;
+    if (await CheckInternet()) {
+      var response = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: json.encode(data),
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        List<dynamic> jsonData = json.decode(response.body)['list_biens'];
+        List<Biens_immobiliers> biens = jsonData.map((json) => Biens_immobiliers.fromJson(json)).toList();
+        return Right(biens);
+      } else {
+        return Left(StatusRequest.serveurfailure);
+      }
     } else {
-      throw "Error during HTTP request: ${response.statusCode}";
+      return Left(StatusRequest.offlinefailure);
     }
   } catch (e) {
-    throw "Error during HTTP request: $e";
+     throw "Error during HTTP request: $e";
   }
-
-  }
+}
   
   void updateUserData() {
   var controller = Get.find<biensImmobiliersControllerImp>();
@@ -107,18 +116,22 @@ Future<Map<String, Biens_immobiliers>> createImmobilie(String url, Map<String, d
 }
 }
 class CrudGet {
-  Future<List<Biens_immobiliers>> getData(String url) async {
+  Future<Either<StatusRequest, List<Biens_immobiliers>>> getData(String url) async {
     try {
-      var response = await http.get(Uri.parse(url));
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        List<dynamic> data = json.decode(response.body)['list_biens'];
-        return data.map((json) => Biens_immobiliers.fromJson(json)).toList();
+      if (await CheckInternet()) {
+        var response = await http.get(Uri.parse(url));
+        if (response.statusCode == 200 || response.statusCode == 201) {
+          List<dynamic> data = json.decode(response.body)['list_biens'];
+          List<Biens_immobiliers> biens = data.map((json) => Biens_immobiliers.fromJson(json)).toList();
+          return Right(biens);
+        } else {
+          return Left(StatusRequest.serveurfailure);
+        }
       } else {
-        throw "Error during HTTP request: ${response.statusCode}";
+        return Left(StatusRequest.offlinefailure);
       }
     } catch (e) {
-      throw "Error during HTTP request: $e";
+       throw "Error during HTTP request: $e";
     }
   }
-  
 }

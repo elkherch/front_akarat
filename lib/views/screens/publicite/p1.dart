@@ -29,11 +29,11 @@ class _Informations1State extends State<Informations1> {
     '66'.tr, '67'.tr,
   ];
 
-  final List<String> dropdownValuesNumber = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10',];
-  final List<String> dropdownLabelsNumber = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10',];
+  final List<String> dropdownValuesNumber = ['صالة','1', '2', '3', '4', '5', '6', '7', '8', '9', '10',];
+  final List<String> dropdownLabelsNumber = ['صالة','1', '2', '3', '4', '5', '6', '7', '8', '9', '10',];
 
-  final List<String> dropdownValuesNumberI = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10',];
-  final List<String> dropdownLabelsNumberI = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10',];
+  final List<String> dropdownValuesNumberI = ['غرفة','1', '2', '3', '4', '5', '6', '7', '8', '9', '10',];
+  final List<String> dropdownLabelsNumberI = ['غرفة','1', '2', '3', '4', '5', '6', '7', '8', '9', '10',];
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +41,27 @@ class _Informations1State extends State<Informations1> {
     return Scaffold(
       appBar: AppBarCustam(title: '6'.tr,),
       body: GetBuilder<Informations1ControllerImp>(
+        id: 'bien_p1',
         init: controller,
-        builder: (context) {
+        builder: (controller) {
+          if (controller.iduser == 0) {
+            return Container(
+            margin:const EdgeInsets.all(10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+               const SizedBox(height: 100),
+
+                Text(
+                  '90'.tr,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 400),
+                AnnonceBtn(onpressed: (){controller.creerCompte();}, text: '84'.tr,)
+              ],
+            ),
+          );
+          }else{
           return SingleChildScrollView(
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 1),
@@ -125,7 +144,7 @@ class _Informations1State extends State<Informations1> {
                   const SizedBox(height: 25),
                   BtnSuiv(
                     onpressed: () {
-                      // Naviguez ou exécutez votre logique ici
+                      controller.goToSuivant();
                     },
                     text: '23'.tr,
                   ),
@@ -133,11 +152,11 @@ class _Informations1State extends State<Informations1> {
               ),
             ),
           );
+          
         }
-      ),
+        }),
     );
   }
-
   OutlineInputBorder buildBorder() {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(8),

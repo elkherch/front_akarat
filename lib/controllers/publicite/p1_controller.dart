@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 
 abstract class Informations1Controller extends GetxController {
   void goToSuivant();
+  creerCompte();
 }
 
 class Informations1ControllerImp extends Informations1Controller {
@@ -21,9 +22,9 @@ class Informations1ControllerImp extends Informations1Controller {
   final GlobalKey<FormState> formkeyS = GlobalKey<FormState>();
   late int iduser;
   late List<Biens_immobiliers> data2 = [];
-  String selectedNbBien = '1';
+  String selectedNbBien = 'صالة';
 
-  String selectedNbBien1 = '1';
+  String selectedNbBien1 = 'غرفة';
   String selectedCategory = '';
   @override
   void onInit() {
@@ -41,8 +42,16 @@ class Informations1ControllerImp extends Informations1Controller {
 
   @override
   void goToSuivant() {
-    var formdata = formkeyS.currentState;
-    if (formdata != null && formdata.validate()) {
+
+    if (selectedNbBien == 'صالة' || selectedNbBien1 == 'غرفة') {
+      Get.toNamed(AppRoutes.publicite2, arguments: {
+        'typeAn': typeAnController.text,
+        'descr': descrController.text,
+        'categor': selectedCategory,
+        'nbB': '0',
+        'nbS': '0'
+      });
+    } else {
       Get.toNamed(AppRoutes.publicite2, arguments: {
         'typeAn': typeAnController.text,
         'descr': descrController.text,
@@ -50,12 +59,18 @@ class Informations1ControllerImp extends Informations1Controller {
         'nbB': selectedNbBien,
         'nbS': selectedNbBien1
       });
-
+    }
+      
+    typeAnController.text ='';
+    descrController.text ='';
+    selectedCategory ='';
+    selectedNbBien ='صالة';
+    selectedNbBien1='غرفة';
   }
 
   @override
   void creerCompte() {
     Get.toNamed(AppRoutes.register);
   }
-}
+
 }

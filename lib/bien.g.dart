@@ -24,6 +24,8 @@ class Biens_immobiliersAdapter extends TypeAdapter<Biens_immobilieHive> {
     var id_user = reader.read();
     var coordonnees_geographique = reader.read();
     var date_publication = reader.read();
+    var numero = reader.read();
+
     return Biens_immobilieHive(
       bienID: bienID,
       type_de_bien: type_de_bien,
@@ -40,6 +42,8 @@ class Biens_immobiliersAdapter extends TypeAdapter<Biens_immobilieHive> {
       id_user: id_user,
       coordonnees_geographique: coordonnees_geographique,
       date_publication: date_publication,
+      numero: numero,
+
       
     );
   }
@@ -61,5 +65,6 @@ class Biens_immobiliersAdapter extends TypeAdapter<Biens_immobilieHive> {
     writer.write(obj.id_user);
     writer.write(obj.coordonnees_geographique);
     writer.write(obj.date_publication);
+    writer.write(obj.numero);
  }
 }

@@ -29,7 +29,6 @@ class _MainScreenState extends State<MainScreen> {
       init: biensImmobiliersControllerImp(),
       builder: (context) {
         return Scaffold(
-          backgroundColor: AppColor.backgroundcolor,
           key: _scaffoldKey,
           appBar: CustomAppBar(
             title: "1".tr,
@@ -51,20 +50,19 @@ class _MainScreenState extends State<MainScreen> {
           ),
           body: GetBuilder<biensImmobiliersControllerImp>(
             builder: (controller) {
-              return SafeArea(
-                child: Container(
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(20)), // BorderRadius sur les deux côtés en haut
-                    color: Colors.white, // Couleur du fond du container
-                  ),
-                  child: _buildBody(_currentIndex),
-                ),
-              );
+              return _buildBody(_currentIndex);
             },
           ),
           drawer: AppDrawer(
             
             drawerItems: [
+              DrawerItem(
+                title: '8'.tr,
+                icon: Icons.language,
+                onTap: () {
+                  controller.choixLangue();
+                },
+              ),
               DrawerItem(
                 title: '5'.tr,
                 icon: Icons.person,
@@ -88,17 +86,37 @@ class _MainScreenState extends State<MainScreen> {
               ),
             ],
           ),
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: AppColor.whiteColor,
-            onPressed: () {
-              controller.addannonce();
-            },
-            tooltip: 'Increment',
-            child: const Icon(
+          floatingActionButton:  Row(
+  mainAxisAlignment: MainAxisAlignment.end,
+  children: [
+    TextButton(
+      onPressed: () {
+    controller.addannonce();
+      },
+      child:  Row(
+        children: [
+           Icon(
               Icons.add,
               color: AppColor.backgroundcolor,
             ),
+          SizedBox(width: 8), // Espacement entre l'icône et le texte
+          Text(
+            '46'.tr, // Texte du bouton WhatsApp
+            style: TextStyle(
+              color: AppColor.backgroundcolor, // Couleur du texte
+              fontSize: 16, // Taille du texte
+            ),
           ),
+        ],
+      ),
+      style: ButtonStyle(
+        
+        backgroundColor: MaterialStateProperty.all(AppColor.whiteColor), // Couleur de fond du bouton
+      ),
+    ),
+    
+  ],
+),
         );
       }
     );

@@ -31,7 +31,7 @@ void main() async {
   Get.put(CrudGet());
   Get.put(CrudPost());
   await initHive();
-  Get.put(Mytranslation());
+  Get.put(MyTranslations());
   Get.put(biensImmobiliersControllerImp());
   Get.put(Informations1ControllerImp());
   // Get.put(Informations2ControllerImp());
@@ -48,23 +48,24 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      translations: Mytranslation(),
+      translations: MyTranslations(),
       locale: controller.language,
       theme: controller.apptheme,
+      initialRoute: '/main',
       getPages: [
-        GetPage(name: '/', page: () => const langue()),
+        GetPage(name: AppRoutes.langue, page: () => const langue()),
         GetPage(name: AppRoutes.main, page: () => const MainScreen()),
         GetPage(name: AppRoutes.home, page: () => const HomeScreen()),
         GetPage(name: AppRoutes.favorie, page: () => const FavorieScreen()),
         GetPage(name: AppRoutes.map, page: () => const MapScreen()),
-        GetPage(name: AppRoutes.tripdetails, page: () => const TripDetailsBiens()),
+        // GetPage(name: AppRoutes.tripdetails, page: () => const TripDetailsBiens(title: '',)),
         GetPage(name: AppRoutes.rechercher, page: () =>const RechercherImmobilie()),
         GetPage(name: AppRoutes.register, page: () => Register()),
         GetPage(name: AppRoutes.annonce, page: () =>const Annonce()),
         GetPage(name: AppRoutes.add_annonce, page: () =>const AddAnnonce()),
-        GetPage(name: AppRoutes.parametre, page: () => Parametre()),
+        GetPage(name: AppRoutes.parametre, page: () => const Parametre()),
         GetPage(name: AppRoutes.login, page: () =>const Login()),
-        GetPage(name: AppRoutes.publicite, page: () => Informations1()),
+        GetPage(name: AppRoutes.publicite, page: () => const Informations1()),
                 GetPage(name: AppRoutes.publicite2, page: () => Informations2()),
         GetPage(name: AppRoutes.publicite3, page: () =>const Informations3()),
         GetPage(name: AppRoutes.recherche, page: () =>const ReloultScreen()),

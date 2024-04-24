@@ -47,7 +47,8 @@ class Biens_immobilieHive extends HiveObject{
 
   @HiveField(14)
   String? date_publication;
-
+  @HiveField(14)
+  String? numero;
   Biens_immobilieHive({
     this.bienID,
     this.type_de_bien,
@@ -64,6 +65,7 @@ class Biens_immobilieHive extends HiveObject{
     this.id_user,
     this.coordonnees_geographique,
     this.date_publication,
+    this.numero,
   });
 }
 

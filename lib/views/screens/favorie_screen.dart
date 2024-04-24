@@ -77,15 +77,5 @@ class FavorieScreen extends StatelessWidget {
   Future<void> _deleteFavorieBiens(int? bienID) async {
     final box = await Hive.openBox<Biens_immobilieHive>('biens_immobiliers_box');
     await box.delete(bienID);
-    Get.defaultDialog(
-      title: "Success",
-      middleText: "Bien supprimé des favoris avec succès",
-      confirm: ElevatedButton(
-        onPressed: () {
-          Get.back(); // Fermer la boîte de dialogue
-        },
-        child: Text('OK'),
-      ),
-    );
   }
 }

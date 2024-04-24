@@ -13,7 +13,7 @@ class SignIpLogin extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(text1,style: Theme.of(context).textTheme.headline6,),
+        Text(text1,style: Theme.of(context).textTheme.headline3,),
         InkWell(
           onTap: onTap,
           child: Text(text2,style: Theme.of(context).textTheme.headline4,),

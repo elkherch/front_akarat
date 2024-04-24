@@ -25,7 +25,8 @@ class LocalController extends  GetxController{
       language = const Locale("fr");
       apptheme = themeFrancais;
     }else{
-      language = Locale(Get.deviceLocale!.languageCode);
+       language = const Locale("fr");
+      apptheme = themeFrancais;
     }
     super.onInit();
   }

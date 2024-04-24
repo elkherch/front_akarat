@@ -9,7 +9,7 @@ class MapScreen extends StatelessWidget {
       child:Text(
         "Cette page est en cours de développement.",
         style: TextStyle(
-          fontSize: 18.0,
+          fontSize: 15.0,
           fontWeight: FontWeight.bold,
         ),
       ),

@@ -39,7 +39,7 @@ class TripBiens extends StatelessWidget {
       builder: (controller) {
         return InkWell(
           onTap: () {
-            controller.goToDetails(idbien);
+            controller.goToDetails(idbien , title);
           },
           child: Card(
             shape: RoundedRectangleBorder(
@@ -69,7 +69,7 @@ class TripBiens extends StatelessWidget {
                         height: 180,
                         color: Colors.grey, // You can set any color you want here
                         child: const Center(
-                          child:  Text('No Image'), // Placeholder text
+                          child:  Icon(Icons.image, size: 40, color: AppColor.grey300,), // Placeholder text
                         ),
                       ),
                   ],
@@ -90,9 +90,8 @@ class TripBiens extends StatelessWidget {
                         const  Spacer(),
                         IconButton(
                           onPressed: onpressed,
-                           icon:  Icon(
-                            controller.active ? Icons.favorite : Icons.favorite_border_outlined,
-                            color: AppColor.backgroundcolor,
+                           icon:const  Icon(
+                             Icons.favorite,
                             )
                            )
                         ],

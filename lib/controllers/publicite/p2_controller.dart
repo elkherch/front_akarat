@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 abstract class Informations2Controller extends GetxController {
-  goToPublicite();
+  goToPublicite(String regionI , String emplacementI);
   goToPublicite1();
   creerCompte();
 }
@@ -28,7 +28,7 @@ class Informations2ControllerImp extends Informations2Controller {
   late String selectUnite;
   int? iduser;
   @override
-  goToPublicite() async {
+  goToPublicite(String regionI , String emplacementI) async {
     try {
       String typeAnnonce = Get.arguments['typeAn'].toString();
       String description = Get.arguments['descr'].toString();
@@ -49,8 +49,8 @@ class Informations2ControllerImp extends Informations2Controller {
     "surface": surfaceWithUnit,
     "description": description,
     "categorie": categor,
-    "region": region,
-    "emplacement": emplacement,
+    "region": regionI,
+    "emplacement": emplacementI,
     "adresse": adresse.text,    
     "nombre_bains": nbBien,    
     "nombre_sals": nbSalon,    

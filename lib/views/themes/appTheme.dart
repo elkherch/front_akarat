@@ -4,7 +4,7 @@ import 'package:akarat/views/themes/colors.dart';
 import 'package:flutter/material.dart';
 
 ThemeData  themeFrancais = ThemeData(
-        // fontFamily: "PlayfairDisplay",
+        fontFamily: "PlayfairDisplay",
         textTheme: const TextTheme(
           headline1: TextStyle(
             fontSize: 20,
@@ -12,7 +12,7 @@ ThemeData  themeFrancais = ThemeData(
             fontWeight: FontWeight.bold,
           ),
           headline2: TextStyle(
-            fontSize: 16,
+            fontSize: 14,
             fontWeight: FontWeight.bold,
             color: AppColor.whiteColor
           ),
@@ -47,10 +47,8 @@ ThemeData  themeFrancais = ThemeData(
         ),
         primaryColor: Colors.blue
       );
-
-
 ThemeData  themeArabia = ThemeData(
-        // fontFamily: "Cairo",
+        fontFamily: "Cairo",
         textTheme: const TextTheme(
           headline1: TextStyle(
             color: Colors.white,
@@ -58,7 +56,7 @@ ThemeData  themeArabia = ThemeData(
             fontWeight: FontWeight.bold,
           ),
           headline2: TextStyle(
-            fontSize: 16,
+            fontSize: 14,
             fontWeight: FontWeight.bold,
             color: AppColor.whiteColor
           ),

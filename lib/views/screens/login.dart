@@ -47,7 +47,7 @@ class Login extends StatelessWidget {
                     prefixIcon: Icons.person_outline,
                     myController: controller.nomUser,
                     valid: (val) {
-                      return ValideInput(val!, 5, 30, '13'.tr);
+                      return ;
                     },
                     isNumber: false,
                     labelText: '13'.tr,
@@ -60,7 +60,7 @@ class Login extends StatelessWidget {
                     prefixIcon: Icons.lock_outlined,
                     myController: controller.password,
                     valid: (val) {
-                      return ValideInput(val!, 5, 30, '16'.tr);
+                      return;
                     },
                     isNumber: false,
                     labelText: '16'.tr,

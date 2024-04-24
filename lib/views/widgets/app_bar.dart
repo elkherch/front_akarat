@@ -9,7 +9,6 @@ class AppBarCustam extends StatelessWidget implements PreferredSizeWidget {
   AppBarCustam( {
     required this.title,
   });
-
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -24,7 +23,7 @@ class AppBarCustam extends StatelessWidget implements PreferredSizeWidget {
         leading: IconButton(
         icon:const Icon(Icons.arrow_back , color: AppColor.whiteColor,), // Icône à gauche de l'AppBar
         onPressed: () {
-          Get.back();
+          Get.until((route) => route.isFirst);
         },
       ),
     );

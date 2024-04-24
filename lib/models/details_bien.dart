@@ -17,6 +17,8 @@ class Details_immobiliers {
   final String? region;
   final String? adresse;
   final String? categorie;
+  final String? numero;
+
 
 
   Details_immobiliers( {
@@ -32,6 +34,8 @@ class Details_immobiliers {
     required this.email,
     required this.username,
     required this.first_name,
+    required this.numero,
+
 
  required this.emplacement, 
     required this.region, 
@@ -58,6 +62,7 @@ class Details_immobiliers {
     region: json['region'],
     categorie: json['categorie'],
     adresse: json['adresse'],
+    numero: json['numero'],
   );
 }
 
@@ -79,6 +84,7 @@ class Details_immobiliers {
       'emplacement':emplacement,
       'region':region,
       'adresse':adresse,
+      'numero':numero,
 
     };
   }

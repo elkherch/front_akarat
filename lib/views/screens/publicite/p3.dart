@@ -18,7 +18,7 @@ class Informations3 extends StatelessWidget {
     return Scaffold(
       appBar: AppBarCustam(title: '6'.tr,),
       body: GetBuilder<biensImmobiliersControllerImp>(
-        init: biensImmobiliersControllerImp(),
+        init: controller,
         builder: (controller) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -29,20 +29,21 @@ class Informations3 extends StatelessWidget {
                 },
                 child: Container(
                   width: 50,
-                  margin:const EdgeInsets.only(left: 20, top: 20,right: 200),
+                  
+                  margin:const EdgeInsets.only(left: 20, top: 20,right: 290),
                   decoration: BoxDecoration(
                     
                     borderRadius: BorderRadius.circular(10.0),
                     color: Colors.grey[200],
                     border: Border.all(
-                       color: AppColor.primaryColor,
+                       color: AppColor.backgroundcolor,
                        width: 2.0,
                      ),
                   ),
                   child: const Icon(
-                        size: 150,
+                        size: 80,
                         Icons.add_photo_alternate,
-                        color: Colors.blue,
+                        color: AppColor.backgroundcolor,
                       ),
                 ),
               ),
