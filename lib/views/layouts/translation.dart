@@ -178,7 +178,9 @@ class MyTranslations extends Translations {
           "186": "خطأ",
           "187": "فشل المصادقة",
           "188": "تم التسجيل بنجاح",
-          "189": "نجاح"
+          "189": "نجاح",
+          "190":"إضافة الصور",
+          "191":"تحتاج إلى إضافة الصور"
 
         },
         "fr": {
@@ -223,8 +225,8 @@ class MyTranslations extends Translations {
           "39": "Nouadhibou",
           "40": "Nouakchott",
           "41": "Hodh Ech Chargui",
-          "42": "Euro",
-          "43": "Dollar",
+          "42": "MRU",
+          "43": "Ou",
           "44": "UM",
           "45": "1 mètre carré",
           "46": "Ajouter",
@@ -356,7 +358,9 @@ class MyTranslations extends Translations {
            "186":"Erreur",
            "187":"Echec de l'authentification",
            "188":"Inscription réussie",
-           "189":"Succès"
+           "189":"Succès",
+           "190":"Ajoute des imanges",
+           "191":"Vous devrez Ajoute des imanges"
         }
       };
 }

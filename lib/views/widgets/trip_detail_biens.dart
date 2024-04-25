@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, prefer_const_literals_to_create_immutables, unnecessary_import
+// ignore_for_file: deprecated_member_use, prefer_const_literals_to_create_immutables, unnecessary_import, sort_child_properties_last
 
 import 'package:akarat/controllers/details_biens_controller.dart';
 import 'package:akarat/views/themes/colors.dart';
@@ -151,7 +151,7 @@ class TripDetailsBiens extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 20,),
+                    const SizedBox(height: 20,),
                      Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(1),
@@ -205,34 +205,31 @@ class TripDetailsBiens extends StatelessWidget {
                             ),
                             const SizedBox(height: 30),
                              Row(
-  mainAxisAlignment: MainAxisAlignment.center,
-  children: [
-    TextButton(
-      onPressed: () {
-        launchSMS("${bien.numero}");
-      },
-      child: Row(
-        children: [
-          Icon(
-            Icons.sms, // Icône SMS
-            color: AppColor.backgroundcolor, // Couleur de l'icône
-          ),
-          SizedBox(width: 8), // Espacement entre l'icône et le texte
-          Text(
-            '179'.tr, // Texte du bouton SMS
-            style: TextStyle(
-              color: AppColor.backgroundcolor, // Couleur du texte
-              fontSize: 16, // Taille du texte
-            ),
-          ),
-        ],
-      ),
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(AppColor.whiteColor), // Couleur de fond du bouton
-      ),
-    ),
-  ],
-),
+                           mainAxisAlignment: MainAxisAlignment.center,
+                           children: [
+                             TextButton(
+                               onPressed: () {
+                                 launchCall("${bien.numero}");
+                               },
+                               child: Row(
+                                children: [
+                                   const Icon(Icons.phone, color: AppColor.backgroundcolor,),
+                                   const SizedBox(width: 8), 
+                                   Text(
+                                     '178'.tr, // Texte du bouton SMS
+                                     style: const TextStyle(
+                                       color: AppColor.backgroundcolor, // Couleur du texte
+                                       fontSize: 16, // Taille du texte
+                                     ),
+                                   ),
+                                 ],
+                               ),
+                               style: ButtonStyle(
+                                 backgroundColor: MaterialStateProperty.all(AppColor.whiteColor), // Couleur de fond du bouton
+                               ),
+                             ),
+                           ],
+                         ),
                           ],
                         ),
                       ),
@@ -255,21 +252,13 @@ class TripDetailsBiens extends StatelessWidget {
     );
 
   }
-  launchWhatsApp(String phoneNumber) async {
-  String url = "https://wa.me/$phoneNumber";
+launchCall(String phoneNumber) async {
+  String url = "tel:$phoneNumber";
   if (await canLaunch(url)) {
     await launch(url);
   } else {
-    throw 'Impossible de lancer WhatsApp avec le numéro $phoneNumber';
+    throw 'Impossible de lancer l\'appel avec le numéro $phoneNumber';
   }
 }
-launchSMS(String phoneNumber) async {
-    String url = "sms:$phoneNumber";
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Impossible d\'ouvrir l\'application SMS avec le numéro $phoneNumber';
-    }
-  }
 
 }

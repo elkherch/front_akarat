@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
         // GetPage(name: AppRoutes.tripdetails, page: () => const TripDetailsBiens(title: '',)),
         GetPage(name: AppRoutes.rechercher, page: () =>const RechercherImmobilie()),
         GetPage(name: AppRoutes.register, page: () => Register()),
-        GetPage(name: AppRoutes.annonce, page: () =>const Annonce()),
+        GetPage(name: AppRoutes.annonce, page: () => Annonce()),
         GetPage(name: AppRoutes.add_annonce, page: () =>const AddAnnonce()),
         GetPage(name: AppRoutes.parametre, page: () => const Parametre()),
         GetPage(name: AppRoutes.login, page: () =>const Login()),

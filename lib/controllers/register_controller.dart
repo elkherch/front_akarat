@@ -41,7 +41,6 @@ class SignUpControlerImp extends SignUpControler {
   @override
   signUp() async {
     isLoading.value = true;
-
     try {
        data = await authService.signUp(Apilink.user_register, {
         "username": numeroteluser.text,

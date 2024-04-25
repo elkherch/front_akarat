@@ -29,10 +29,8 @@ class Informations1ControllerImp extends Informations1Controller {
   @override
   void onInit() {
     iduser = myServices.sharedPreferences.getInt("iduser") ?? 0;
-    
     super.onInit();
   }
-
   @override
   void dispose() {
     typeAnController.dispose();

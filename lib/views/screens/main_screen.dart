@@ -1,3 +1,5 @@
+// ignore_for_file: sort_child_properties_last
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:akarat/controllers/biens_immobiliers_controllers.dart';
@@ -95,14 +97,14 @@ class _MainScreenState extends State<MainScreen> {
       },
       child:  Row(
         children: [
-           Icon(
+           const Icon(
               Icons.add,
               color: AppColor.backgroundcolor,
             ),
-          SizedBox(width: 8), // Espacement entre l'icône et le texte
+          const SizedBox(width: 8), // Espacement entre l'icône et le texte
           Text(
             '46'.tr, // Texte du bouton WhatsApp
-            style: TextStyle(
+            style: const TextStyle(
               color: AppColor.backgroundcolor, // Couleur du texte
               fontSize: 16, // Taille du texte
             ),

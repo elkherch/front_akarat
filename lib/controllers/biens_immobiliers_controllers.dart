@@ -28,7 +28,7 @@ abstract class biensImmobiliersController extends GetxController{
   createFavorie(Biens_immobiliers bien);
   addAnnoce();
   choixLangue();
-
+ deleteItem(int bienId);
   register();
   parametre();
   addannonce();
@@ -59,6 +59,7 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
   
   late List<Biens_immobiliers> data1 = [];
   RxBool isLoading = false.obs;
+  RxBool isLoadingCreerBien = false.obs;
   
   final AuthService authService = AuthService();
   RxBool utilisateurExiste = false.obs;
@@ -158,8 +159,8 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
     iduser = myServices.sharedPreferences.getInt("iduser") ?? 0;
     utilisateurExiste.value = myServices.sharedPreferences.getBool("utilisateurExiste") ?? false;
     verifierUtilisateur();
-    biens = <Biens_immobiliers>[].obs;
     getDataListe();
+    biens = <Biens_immobiliers>[].obs;
     update(['bien_home']);
   }
   @override
@@ -204,8 +205,9 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
    
     @override
   goToCreer() async {
+    isLoadingCreerBien.value = true;
   try {
-    // if(imageXFileList.isNotEmpty){
+    if(imageXFileList.isNotEmpty){
     String typeAnnonceT = Get.arguments['type_de_bien'].toString();
     String descriptionT = Get.arguments['description'].toString();
     String prixT = Get.arguments['prix'].toString();
@@ -260,14 +262,14 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
       getBiens();
 
       data2 = apiData.values.toList();
-      
-      // Utilisez Get.off pour aller à la nouvelle page et remplacer l'ancienne dans la pile de navigation
+      isLoadingCreerBien.value=false;
       Get.off(const MainScreen());
-    // }else{
-    //   print("-------------------------------------");
-    // }
+    }else{
+      
+    }
     } else {
-      print('User does not exist....');
+      isLoadingCreerBien.value = false;
+      showDaialog('186'.tr, '191'.tr);
     }
   } catch (e) {
     print('Error fetching data: $e');
@@ -313,7 +315,7 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
       print('Error fetching data: $e');
     }
   }
- @override
+  @override
   goTo() async {
     isLoading.value = true;
    try {
@@ -344,19 +346,26 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
   rechercher() {
     Get.toNamed(AppRoutes.rechercher);
   }
-  
   @override
   addAnnoce() {
     Get.toNamed(AppRoutes.publicite);
   }
-  
   @override
   annonce() {
     getDataListe();
-    update(['bien_liste']);
-    Get.to(const Annonce());
+    Get.toNamed(AppRoutes.annonce);
   }
-  
+  @override
+  deleteItem(int bie) async {
+    try {
+      await _crudPost.deleteItem(bie);
+      update(['bien_liste']);
+      getDataListe();
+      print("delete avec sucess");
+    } catch (e) {
+      print("delete error");
+    }
+  }
   @override
   register() {
     Get.toNamed(AppRoutes.register);

@@ -1,7 +1,6 @@
 // ignore_for_file: unused_local_variable, unnecessary_brace_in_string_interps
 
 import 'package:akarat/controllers/biens_immobiliers_controllers.dart';
-import 'package:akarat/controllers/trip_bien_controller.dart';
 import 'package:akarat/views/themes/colors.dart';
 import 'package:akarat/views/widgets/anothesImages.dart';
 import 'package:flutter/material.dart';

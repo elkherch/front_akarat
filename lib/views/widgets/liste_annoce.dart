@@ -14,7 +14,7 @@ class TripAnnonce extends StatelessWidget {
   final int idbien;
   final int nombre_de_salles_de_bains;
   final int nombre_de_salles_de_sals;
-  
+  final void Function()? onPressed;
   const TripAnnonce({
     Key? key,
     required this.imageUrl,
@@ -22,7 +22,7 @@ class TripAnnonce extends StatelessWidget {
     required this.surface, 
     required this.lien, 
     required this.prix,
-    required this.idbien, required this.nombre_de_salles_de_bains, required this.nombre_de_salles_de_sals,
+    required this.idbien, required this.nombre_de_salles_de_bains, required this.nombre_de_salles_de_sals,required this.onPressed,
   }) : super(key: key);
 
   @override
@@ -81,6 +81,14 @@ class TripAnnonce extends StatelessWidget {
                                   style: const TextStyle(color: AppColor.black, fontSize: 16),
                             ),
                           ),
+                          const Spacer(),
+                           IconButton(
+                          onPressed: onPressed,
+                           icon:const  Icon(
+                             Icons.favorite,
+                            )
+                           )
+
                         ],
                       ),
                       Padding(

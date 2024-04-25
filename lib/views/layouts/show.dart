@@ -13,12 +13,13 @@ void showDaialog(String title, String text1) {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              text1,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline6,
-            ),
-            Text(
               title,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headline4,
+            ),
+            const SizedBox(height: 10,),
+            Text(
+              text1,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headline6,
             ),

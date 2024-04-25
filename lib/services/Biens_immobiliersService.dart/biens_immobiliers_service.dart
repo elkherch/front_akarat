@@ -37,9 +37,16 @@ class CrudPost {
   } catch (e) {
      throw "Error during HTTP request: $e";
   }
-
-
 }
+  Future<void> deleteItem(int bien_id) async {
+    final url = 'http://10.0.2.2:8000/delete_bien/$bien_id/'; // Remplacez cette URL par l'URL de votre API Django pour la suppression
+    final response = await http.delete(Uri.parse(url));
+    if (response.statusCode == 200) {
+      return;
+    } else {
+      throw Exception('Échec de la suppression de l\'élément: ${response.statusCode}');
+    }
+  }
   Future<Either<StatusRequest, List<Biens_immobiliers>>> rechercheData(String url, Map data) async {
   try {
     if (await CheckInternet()) {

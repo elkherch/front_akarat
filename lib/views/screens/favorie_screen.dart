@@ -1,6 +1,5 @@
 import 'package:akarat/bien.dart';
 import 'package:akarat/controllers/biens_immobiliers_controllers.dart';
-import 'package:akarat/views/themes/colors.dart';
 import 'package:akarat/views/widgets/trip_biens.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

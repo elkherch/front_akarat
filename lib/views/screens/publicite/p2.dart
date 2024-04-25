@@ -34,13 +34,11 @@ class Informations2 extends StatelessWidget {
   ValueNotifier<String?> selectedQuartier = ValueNotifier<String?>(null);
 final List<String> dropdownValues2 = [
   '42'.tr,
-  '43'.tr,
   '44'.tr,
 ];
 
 final List<String> dropdownLabels2 = [
   '42'.tr,
-  '43'.tr,
   '44'.tr,
 ];
 
