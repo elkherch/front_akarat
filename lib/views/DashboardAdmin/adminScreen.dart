@@ -11,14 +11,13 @@ import 'package:akarat/views/widgets/bottom_nav_bar.dart';
 import 'package:akarat/views/widgets/custom_app_bar.dart';
 import 'package:akarat/views/widgets/drawer.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+class AdminScreen extends StatefulWidget {
+  const AdminScreen({Key? key}) : super(key: key);
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<AdminScreen> createState() => _AdminScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
-  int _currentIndex = 0;
+class _AdminScreenState extends State<AdminScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final biensImmobiliersControllerImp controller =
       Get.put(biensImmobiliersControllerImp());
@@ -42,21 +41,13 @@ class _MainScreenState extends State<MainScreen> {
             },
             isFrench: false,
           ),
-          bottomNavigationBar: BottomNavBar(
-            currentIndex: _currentIndex,
-            onTap: (index) {
-              setState(() {
-                _currentIndex = index;
-              });
-            },
-          ),
+          
           body: GetBuilder<biensImmobiliersControllerImp>(
             builder: (controller) {
-              return _buildBody(_currentIndex);
+              return const HomeScreen();
             },
           ),
           drawer: AppDrawer(
-            
             drawerItems: [
               DrawerItem(
                 title: '8'.tr,
@@ -65,25 +56,12 @@ class _MainScreenState extends State<MainScreen> {
                   controller.choixLangue();
                 },
               ),
-              DrawerItem(
-                title: '5'.tr,
-                icon: Icons.person,
-                onTap: () {
-                  controller.parametre();
-                },
-              ),
+              
               DrawerItem(
                 title: '6'.tr,
                 icon: Icons.add_box,
                 onTap: () {
                   controller.addAnnoce();
-                },
-              ),
-              DrawerItem(
-                title: '7'.tr,
-                icon: Icons.announcement,
-                onTap: () {
-                  controller.annonce();
                 },
               ),
             ],
@@ -122,18 +100,5 @@ class _MainScreenState extends State<MainScreen> {
         );
       }
     );
-  }
-
-  Widget _buildBody(int index) {
-    switch (index) {
-      case 0:
-        return const  HomeScreen();
-      case 1:
-        return const FavorieScreen();
-      case 2:
-        return const MapScreen();
-      default:
-        return const HomeScreen();
-    }
   }
 }

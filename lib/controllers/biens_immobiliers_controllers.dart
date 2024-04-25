@@ -6,6 +6,7 @@ import 'package:akarat/models/details_bien.dart';
 import 'package:akarat/services/AuthService/auth_service.dart';
 import 'package:akarat/services/services.dart';
 import 'package:akarat/utils/statusRequest.dart';
+import 'package:akarat/views/DashboardAdmin/adminScreen.dart';
 import 'package:akarat/views/layouts/show.dart';
 import 'package:akarat/views/layouts/showCustom.dart';
 import 'package:akarat/views/screens/annonce.dart';
@@ -29,6 +30,7 @@ abstract class biensImmobiliersController extends GetxController{
   addAnnoce();
   choixLangue();
  deleteItem(int bienId);
+ deleteBien(int bie);
   register();
   parametre();
   addannonce();
@@ -56,6 +58,7 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
   late TextEditingController nomUser;
   late TextEditingController password;
   final CrudGet _crudGet = CrudGet();
+  RxBool isAdmin = false.obs;
   
   late List<Biens_immobiliers> data1 = [];
   RxBool isLoading = false.obs;
@@ -263,7 +266,12 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
 
       data2 = apiData.values.toList();
       isLoadingCreerBien.value=false;
-      Get.off(const MainScreen());
+      if (isAdmin.value) {
+        update(['admin_home']);
+        Get.off(const AdminScreen());
+      } else {
+        Get.off(const MainScreen());
+      }
     }else{
       
     }
@@ -275,7 +283,6 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
     print('Error fetching data: $e');
   }
 }
-
   @override
   void dispose() {
     nomUser.dispose();
@@ -331,8 +338,14 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
       authService.updateUserData(dataLogin!['user_id']);
       isLoading.value = false;
       update(['bien_parametre']);
-      Get.to(const MainScreen());
-    }else{
+      if (dataLogin!['is_superuser']) {
+        isAdmin.value = true;
+        Get.to(const AdminScreen());
+      } else {
+        Get.to(const MainScreen());
+      }
+    }
+    else{
       isLoading.value = false;
       showDaialog('186'.tr, '187'.tr);
     }
@@ -361,6 +374,17 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
       await _crudPost.deleteItem(bie);
       update(['bien_liste']);
       getDataListe();
+      print("delete avec sucess");
+    } catch (e) {
+      print("delete error");
+    }
+  }
+  @override
+  deleteBien(int bie) async {
+    try {
+      await _crudPost.deleteItem(bie);
+      update(['admin_home']);
+      getBiens();
       print("delete avec sucess");
     } catch (e) {
       print("delete error");
