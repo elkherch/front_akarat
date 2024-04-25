@@ -1,11 +1,9 @@
 import 'package:akarat/controllers/register_controller.dart';
 import 'package:akarat/utils/valide_input.dart';
-import 'package:akarat/views/themes/colors.dart';
 import 'package:akarat/views/widgets/AnnonceBtn.dart';
 import 'package:akarat/views/widgets/TextFieldForm.dart';
 import 'package:akarat/views/widgets/app_bar.dart';
 import 'package:akarat/views/widgets/dropdown.dart';
-import 'package:akarat/views/widgets/loginButtom.dart';
 import 'package:akarat/views/widgets/signInlogin.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,16 +13,16 @@ class Register extends StatelessWidget {
 
    final List<String> dropdownValues2 = ['92'.tr, '93'.tr,'94'.tr];
 
-        final List<String> dropdownLabels2 = ['92'.tr, '93'.tr,'94'.tr];
+  final List<String> dropdownLabels2 = ['92'.tr, '93'.tr,'94'.tr];
 
   @override
   Widget build(BuildContext context) {
-    Get.lazyPut(() => SignUpControlerImp());
+    SignUpControlerImp controller = Get.put(SignUpControlerImp());
     return Scaffold(
       appBar: AppBarCustam(title: '9'.tr),
-      body: GetBuilder<SignUpControlerImp>(
-        builder: (controller) {
-          return Container(
+      body: Stack(
+        children: [
+      Container(
             padding: const EdgeInsets.only(
               left: 5,
               right: 5,
@@ -33,7 +31,6 @@ class Register extends StatelessWidget {
             ),
             margin: const EdgeInsets.symmetric(horizontal: 25),
             child: Form(
-              key: controller.formkeyR,
               child: ListView(
                 children: [
                   Text(
@@ -149,9 +146,21 @@ class Register extends StatelessWidget {
                 ],
               ),
             ),
-          );
-        },
-      ),
+          ),
+          Obx(() {
+            return controller.isLoading.value
+                ? Container(
+                    color: Colors.black.withOpacity(0.5), // Opacité de l'arrière-plan
+                    child:const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  )
+                : SizedBox.shrink();
+          }),
+        
+      
+        ]
+      )
     );
   }
 }

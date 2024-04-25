@@ -47,7 +47,7 @@ class FavorieScreen extends StatelessWidget {
                               _deleteFavorieBiens(bien.bienID);
                               // Pas besoin de mettre à jour ici car GetBuilder le fait automatiquement
                             },
-                            imageUrl: imageUrl,
+                            allImages: bien.images,
                             title: bien.type_de_bien ?? "default value",
                             surface: "${bien.surface ?? "default value"}",
                             lien: "${bien.adresse ?? "default value"}",

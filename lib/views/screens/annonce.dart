@@ -16,17 +16,10 @@ class Annonce extends StatelessWidget {
         id: "bien_liste",
         init: biensImmobiliersControllerImp(),
         builder: (controller) {
-          return HandlingDataRequest(
-            statusRequest: controller.statusRequest,
-            widget: Column(
+          return Column(
               children: [
                 Expanded(
-                  child: controller.listeData.isEmpty
-                      ?  Center(
-                          child: Text('180'.tr),
-                        )
-                        :
-                      ListView.builder(
+                  child: ListView.builder(
                           itemCount: controller.listeData.length,
                           itemBuilder: (context, index) {
                             final bien = controller.listeData[index];
@@ -62,8 +55,8 @@ class Annonce extends StatelessWidget {
                       
                 ),
               ],
-            ),
-          );
+            );
+          
         },
       ),
     );

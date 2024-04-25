@@ -5,8 +5,8 @@ import 'package:akarat/models/biens_immobiliers_models.dart';
 import 'package:akarat/models/details_bien.dart';
 import 'package:akarat/services/AuthService/auth_service.dart';
 import 'package:akarat/services/services.dart';
-import 'package:akarat/utils/handlingdata.dart';
 import 'package:akarat/utils/statusRequest.dart';
+import 'package:akarat/views/layouts/show.dart';
 import 'package:akarat/views/layouts/showCustom.dart';
 import 'package:akarat/views/screens/annonce.dart';
 import 'package:akarat/views/screens/main_screen.dart';
@@ -58,6 +58,7 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
   final CrudGet _crudGet = CrudGet();
   
   late List<Biens_immobiliers> data1 = [];
+  RxBool isLoading = false.obs;
   
   final AuthService authService = AuthService();
   RxBool utilisateurExiste = false.obs;
@@ -95,15 +96,13 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
   }
   @override
   Future<void> getDataListe() async {
-  statusRequest = StatusRequest.loading;
-
+  print(iduser);
   try {
     final Either<StatusRequest, List<Details_immobiliers>> apiDataDetailsEither =
-        await _crudPost.postData(Apilink.liste_favorie, {"iduser": iduser});
+        await _crudPost.postData(Apilink.user_favorie, {"iduser": iduser});
 
     apiDataDetailsEither.fold(
       (failure) {
-        statusRequest = StatusRequest.offlinefailure;
         print('Request failed with status: $failure');
       },
       (data) {
@@ -206,7 +205,7 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
     @override
   goToCreer() async {
   try {
-    if(imageXFileList.isNotEmpty){
+    // if(imageXFileList.isNotEmpty){
     String typeAnnonceT = Get.arguments['type_de_bien'].toString();
     String descriptionT = Get.arguments['description'].toString();
     String prixT = Get.arguments['prix'].toString();
@@ -264,9 +263,9 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
       
       // Utilisez Get.off pour aller à la nouvelle page et remplacer l'ancienne dans la pile de navigation
       Get.off(const MainScreen());
-    }else{
-      print("-------------------------------------");
-    }
+    // }else{
+    //   print("-------------------------------------");
+    // }
     } else {
       print('User does not exist....');
     }
@@ -287,6 +286,8 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
   }
  @override
   Future<void> getBiens() async {
+    isLoading.value = true;
+
       statusRequest = StatusRequest.loading;
 
     try {
@@ -301,6 +302,8 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
       (data) {
         statusRequest = StatusRequest.success;
         biens.assignAll(data);
+         isLoading.value = false;
+
         update();
         update(['bien_home']);
       },
@@ -311,9 +314,9 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
     }
   }
  @override
-goTo() async {
-  var formdata = formkeyAuth.currentState;
-  if (formdata!.validate()) {
+  goTo() async {
+    isLoading.value = true;
+   try {
     dataLogin = await authService.signIn(Apilink.user_login, {
       "username": nomUser.text,
       "password": password.text
@@ -323,15 +326,19 @@ goTo() async {
       print(dataLogin!['user_id']);
       myServices.sharedPreferences.setBool("utilisateurExiste", true);
       myServices.sharedPreferences.setInt("iduser", dataLogin!['user_id']);
-      // Mettre à jour l'état du contrôleur après la connexion
       authService.updateUserData(dataLogin!['user_id']);
+      isLoading.value = false;
       update(['bien_parametre']);
-      Get.off(const MainScreen());
-
+      Get.to(const MainScreen());
+    }else{
+      isLoading.value = false;
+      showDaialog('186'.tr, '187'.tr);
     }
-  } else {
-    print("object");
-  }
+   }catch (e) {
+      isLoading.value = false;
+      showDaialog('186'.tr,'185'.tr);
+    }
+  
 }
   @override
   rechercher() {
@@ -345,8 +352,9 @@ goTo() async {
   
   @override
   annonce() {
-    update(['bien_favorie']);
-    Get.toNamed(AppRoutes.annonce);
+    getDataListe();
+    update(['bien_liste']);
+    Get.to(const Annonce());
   }
   
   @override

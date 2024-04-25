@@ -1,5 +1,4 @@
 import 'package:akarat/controllers/biens_immobiliers_controllers.dart';
-import 'package:akarat/controllers/parametre_controller.dart';
 import 'package:akarat/views/widgets/AnnonceBtn.dart';
 import 'package:akarat/views/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
@@ -43,10 +42,50 @@ class Parametre extends StatelessWidget {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const SizedBox(height: 30,),
                   const Icon(Icons.person, size: 100),
-                  Text("Nom: ${data1['username'] ?? 'Elkherchy'}"),
-                  Text("Prénom: ${data1['first_name'] ?? 'Elkherchy'}"),
                   const Divider(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 30),
+                    child: Row(
+                      children: [
+                       Text('13'.tr),
+                        const Spacer(),
+                        Text("${data1['numero_tel'] ?? 'Elkherchy'}"),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 30),
+                    child: Row(
+                      children: [
+                         Text('14'.tr),
+                        const Spacer(),
+                        Text("${data1['first_name'] ?? 'Elkherchy'}"),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 30),
+                    child: Row(
+                      children: [
+                        Text('15'.tr),
+                        const Spacer(),
+                        Text("${data1['email'] ?? 'Elkherchy'}"),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 30),
+                    child: Row(
+                      children: [
+                        Text('17'.tr),
+                        const Spacer(),
+                        Text("${data1['username'] ?? 'Elkherchy'}"),
+                      ],
+                    ),
+                  ),
+                  
                 ],
               );
             },

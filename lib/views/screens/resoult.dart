@@ -36,7 +36,7 @@ class ReloultScreen extends StatelessWidget {
                     }
                     return TripBiens(
                       onpressed: (){controller.createFavorie(bien);},
-                      imageUrl: imageUrl,
+                      allImages: bien.images,
                       title: bien.categorie ?? "default value",
                       surface: "${bien.surface ?? "default value"}",
                       lien: "${bien.adresse ?? "default value"}",

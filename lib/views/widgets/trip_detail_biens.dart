@@ -2,6 +2,7 @@
 
 import 'package:akarat/controllers/details_biens_controller.dart';
 import 'package:akarat/views/themes/colors.dart';
+import 'package:akarat/views/widgets/anothesImages.dart';
 import 'package:akarat/views/widgets/app_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,19 +34,8 @@ class TripDetailsBiens extends StatelessWidget {
                     Stack(
                       children: [
                        if (bien.images != null)
-                            ClipRRect(
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(15),
-                                topRight: Radius.circular(15),
-                              ),
-                              child: Image.network(
-                                "http://khdev.pythonanywhere.com/${bien.images![0]}",
-                                height: 180,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                              ),
-                            )
-                          else
+                           AnotherImages(allImages: bien.images)
+                        else
                             Container(
                               height: 180,
                               color: Colors.grey,
@@ -217,32 +207,6 @@ class TripDetailsBiens extends StatelessWidget {
                              Row(
   mainAxisAlignment: MainAxisAlignment.center,
   children: [
-    TextButton(
-      onPressed: () {
-        launchWhatsApp("${bien.numero}");
-      },
-      child: Row(
-        children: [
-          Image.asset(
-            'assets/icons/logo_ws.png', // Chemin de l'image
-            width: 24, // Ajustez la largeur de l'image selon vos besoins
-            height: 24, // Ajustez la hauteur de l'image selon vos besoins
-          ),
-          SizedBox(width: 8), // Espacement entre l'icône et le texte
-          Text(
-            '178'.tr, // Texte du bouton WhatsApp
-            style: TextStyle(
-              color: AppColor.backgroundcolor, // Couleur du texte
-              fontSize: 16, // Taille du texte
-            ),
-          ),
-        ],
-      ),
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all(AppColor.whiteColor), // Couleur de fond du bouton
-      ),
-    ),
-    SizedBox(width: 20), // Espacement entre les deux boutons
     TextButton(
       onPressed: () {
         launchSMS("${bien.numero}");

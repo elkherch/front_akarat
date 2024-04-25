@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:akarat/controllers/biens_immobiliers_controllers.dart';
-import 'package:akarat/controllers/parametre_controller.dart';
 import 'package:akarat/controllers/publicite/p1_controller.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -19,10 +18,10 @@ class AuthService {
     );
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      // Retourne un dictionnaire
       Map<String, dynamic>? responseData = json.decode(response.body);
       return responseData;
     } else {
+      print("Error");
       throw "Error during HTTP request: ${response.statusCode}";
     }
   } catch (e) {
@@ -86,12 +85,10 @@ void updateUserData(int userId) {
   // Récupérer le contrôleur associé à la page Paramètre
   var controller = Get.find<biensImmobiliersControllerImp>();
   var controllerParametre = Get.find<Informations1ControllerImp>();
-  var controllerp = Get.find<ParametreControllerImp>();
   // Mettre à jour les données utilisateur dans le contrôleur
    controller.iduser = userId;
+   controller.update(['bien_parametre']);
    controllerParametre.iduser = userId;
-  controllerp.iduser = userId;
-  controllerp.update(['bien_parametre']);
   // Déclencher une mise à jour de l'interface utilisateur pour refléter les nouvelles données utilisateur
   controllerParametre.update(['bien_p1']);
 }

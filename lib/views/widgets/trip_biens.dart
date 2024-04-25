@@ -3,13 +3,15 @@
 import 'package:akarat/controllers/biens_immobiliers_controllers.dart';
 import 'package:akarat/controllers/trip_bien_controller.dart';
 import 'package:akarat/views/themes/colors.dart';
+import 'package:akarat/views/widgets/anothesImages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class TripBiens extends StatelessWidget {
   final void Function()? onpressed;
 
-  final String? imageUrl;
+  final List<dynamic>? allImages;
+
   final String title;
   final String prix;
   final String surface;
@@ -20,13 +22,12 @@ class TripBiens extends StatelessWidget {
   
    TripBiens({
     Key? key,
-    required this.imageUrl,
     required this.title, 
     required this.surface, 
     required this.lien, 
     required this.prix,
     required this.idbien,
-     required this.nombre_de_salles_de_bains, required this.nombre_de_salles_de_sals, this.onpressed,
+     required this.nombre_de_salles_de_bains, required this.nombre_de_salles_de_sals, this.onpressed, this.allImages,
   }) : super(key: key);
 
   @override
@@ -50,30 +51,19 @@ class TripBiens extends StatelessWidget {
             child: Column(
               children: [
                 Stack(
-                  children: [
-                    if (imageUrl != null)
-                      ClipRRect(
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(15),
-                          topRight: Radius.circular(15),
-                        ),
-                        child: Image.network(
-                          imageUrl!,
-                          height: 180,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                        ),
-                      )
-                    else
-                      Container( // Placeholder widget if imageUrl is null
-                        height: 180,
-                        color: Colors.grey, // You can set any color you want here
-                        child: const Center(
-                          child:  Icon(Icons.image, size: 40, color: AppColor.grey300,), // Placeholder text
-                        ),
-                      ),
-                  ],
-                ),
+                      children: [
+                       if ( allImages != null)
+                           AnotherImages(allImages: allImages)
+                        else
+                            Container(
+                              height: 180,
+                              color: Colors.grey,
+                              child: const Center(
+                                child:  Icon(Icons.image, size: 40, color: AppColor.grey300,),
+                              ),
+                            ),
+                        ],
+                    ),
                 Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: Column(

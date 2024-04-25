@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable
+// ignore_for_file: unused_local_variable, deprecated_member_use
 
 import 'package:akarat/controllers/Login_controller.dart';
 import 'package:akarat/controllers/biens_immobiliers_controllers.dart';
@@ -18,10 +18,9 @@ class Login extends StatelessWidget {
    biensImmobiliersControllerImp controller = Get.put(biensImmobiliersControllerImp());
     return Scaffold(
       appBar: AppBarCustam(title: '20'.tr),
-      body: GetBuilder<biensImmobiliersControllerImp>(
-        init: biensImmobiliersControllerImp(),
-        builder: (controller) {
-          return Container(
+      body: Stack(
+        children: [ 
+          Container(
             padding: const EdgeInsets.only(
                left: 5,
               right: 5,
@@ -30,7 +29,6 @@ class Login extends StatelessWidget {
             ),
             margin: const EdgeInsets.symmetric(horizontal: 25),
             child: Form(
-              key: controller.formkeyAuth,
               child: ListView(
                 children: [
                   const SizedBox(height: 10),
@@ -85,9 +83,21 @@ class Login extends StatelessWidget {
                 ],
               ),
             ),
-          );
-        },
-      ),
+          ),
+          Obx(() {
+            return controller.isLoading.value
+                ? Container(
+                    color: const Color(0xFF818181).withOpacity(0.5),
+                    child:const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  )
+                : const SizedBox.shrink();
+          }),
+        ]
+      )
+        
+      
     );
   }
 }

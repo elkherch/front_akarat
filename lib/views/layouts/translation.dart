@@ -16,7 +16,7 @@ class MyTranslations extends Translations {
           "10": "هل لديك حساب؟",
           "11": "مرحباً",
           "12": "فتح حساب جديد",
-          "13": "اسم المستخدم",
+          "13": "اسم",
           "14": "الاسم الأول",
           "15": "البريد الإلكتروني",
           "16": "كلمة المرور",
@@ -173,7 +173,12 @@ class MyTranslations extends Translations {
           "181":"نواذيبو",
           "182":"إنال",
           "183":"بولنوار",
-          "184":"صاحب إعلان"
+          "184":"صاحب إعلان",
+          "185": "حدث خطأ أثناء الاتصال",
+          "186": "خطأ",
+          "187": "فشل المصادقة",
+          "188": "تم التسجيل بنجاح",
+          "189": "نجاح"
 
         },
         "fr": {
@@ -189,7 +194,7 @@ class MyTranslations extends Translations {
           "10": "Vous avez déjà un compte?",
           "11": "Bienvenue",
           "12": "Créer un nouveau compte",
-          "13": "Nom d'utilisateur",
+          "13": "Nom",
           "14": "Prénom",
           "15": "E-mail",
           "16": "Mot de passe",
@@ -346,7 +351,12 @@ class MyTranslations extends Translations {
            "181":"Nouadhibou",
            "182":"Inal",
            "183":"Boulenouar",
-           "184":"Propriétaire de l'annonce"
+           "184":"Propriétaire de l'annonce",
+           "185":"Une erreur s'est produite lors de connexion",
+           "186":"Erreur",
+           "187":"Echec de l'authentification",
+           "188":"Inscription réussie",
+           "189":"Succès"
         }
       };
 }

@@ -1,5 +1,6 @@
 import 'package:akarat/services/AuthService/auth_service.dart';
 import 'package:akarat/services/services.dart';
+import 'package:akarat/views/layouts/show.dart';
 import 'package:akarat/views/themes/api.dart';
 import 'package:akarat/views/themes/routes.dart';
 import 'package:flutter/material.dart';
@@ -20,38 +21,9 @@ class SignUpControlerImp extends SignUpControler {
 
   Myservices myServices = Get.find();
   final AuthService authService = AuthService();
-
+  RxBool isLoading = false.obs;
   late String selectedAccountTypeI;
   Map<String, dynamic>? data;
-  GlobalKey<FormState> formkeyR = GlobalKey<FormState>();
-
-  @override
-  signUp() async {
-    var formdata = formkeyR.currentState;
-    if (formdata!.validate()) {
-      data = await authService.signUp(Apilink.user_register, {
-        "username": nomuser.text,
-        "first_name": prenomuser.text,
-        "email": emailuser.text,
-        "password": passworduser.text,
-        "type_compte": selectedAccountTypeI.toString(),
-        "numero_tel": numeroteluser.text,
-        "facebook": fbuser.text,
-      });
-      print(data);
-      goTologin();
-
-      update();
-    } else {
-      print("object");
-    }
-    print("1");
-  }
-
-  @override
-  goTologin() {
-    Get.toNamed(AppRoutes.login);
-  }
 
   @override
   void onInit() {
@@ -67,6 +39,56 @@ class SignUpControlerImp extends SignUpControler {
   }
 
   @override
+  signUp() async {
+    isLoading.value = true;
+
+    try {
+       data = await authService.signUp(Apilink.user_register, {
+        "username": numeroteluser.text,
+        "first_name": prenomuser.text,
+        "email": emailuser.text,
+        "password": passworduser.text,
+        "numero_tel": nomuser.text,
+      });
+      isLoading.value = false;
+      Get.snackbar(
+         '189'.tr,
+         '188'.tr,
+         snackPosition: SnackPosition.TOP,
+         duration: const Duration(seconds: 2),
+         backgroundColor: Colors.green,
+         colorText: Colors.white,
+         messageText: Text(
+           '189'.tr,
+           style: const TextStyle(
+             color: Colors.green,
+             fontSize: 18.0,
+             fontWeight: FontWeight.bold
+           ),
+         ),
+         titleText: Text(
+            '188'.tr,
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 14.0,
+              fontWeight: FontWeight.bold,
+            ),
+         ),
+        );
+      Get.toNamed(AppRoutes.login);
+    } catch (e) {
+      isLoading.value = false;
+      showDaialog('186'.tr,'185'.tr);
+    }
+  }
+
+  @override
+  goTologin() {
+    Get.toNamed(AppRoutes.login);
+  }
+
+  
+  @override
   void dispose() {
     emailuser.dispose();
     passworduser.dispose();
@@ -76,5 +98,15 @@ class SignUpControlerImp extends SignUpControler {
     fbuser.dispose();
 
     super.dispose();
+  }
+  @override
+  void onClose() {
+    emailuser.dispose();
+    passworduser.dispose();
+    prenomuser.dispose();
+    numeroteluser.dispose();
+    nomuser.dispose();
+    fbuser.dispose();
+    super.onClose();
   }
 }
