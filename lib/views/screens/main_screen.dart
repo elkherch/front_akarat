@@ -85,7 +85,8 @@ class _MainScreenState extends State<MainScreen> {
                   controller.annonce();
                 },
               ),
-            ],
+             
+            ], onTa: () { controller.logout(); },
           ),
           floatingActionButton:  Row(
           mainAxisAlignment: MainAxisAlignment.end,

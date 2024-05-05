@@ -59,7 +59,8 @@ class _AdminScreenState extends State<AdminScreen> {
               controller.addAnnoce();
             },
           ),
-        ],
+          
+        ], onTa: () { controller.logout(); },
       ),
       floatingActionButton:  Row(
           mainAxisAlignment: MainAxisAlignment.end,

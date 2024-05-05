@@ -1,5 +1,7 @@
 // ignore_for_file: camel_case_types
 
+import 'dart:ffi';
+
 import 'package:akarat/bien.dart';
 import 'package:akarat/models/biens_immobiliers_models.dart';
 import 'package:akarat/models/details_bien.dart';
@@ -52,6 +54,8 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
 
   RxBool isLogged = false.obs;
    int? iduser;
+   bool isAdministrateur =false;
+
   final Myservices myServices = Get.find();
   Map<String, dynamic>? dataLogin;
   late TextEditingController nomUser;
@@ -159,6 +163,7 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
     nomUser = TextEditingController();
     password = TextEditingController();
     iduser = myServices.sharedPreferences.getInt("iduser") ?? 0;
+    isAdministrateur = myServices.sharedPreferences.getBool("isAdministrateur") ?? false;
     utilisateurExiste.value = myServices.sharedPreferences.getBool("utilisateurExiste") ?? false;
     verifierUtilisateur();
     getDataListe();
@@ -258,24 +263,27 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
         immoData,
         imageXFileList,
       );
-
-      update();
-      _crudPost.updateUserData();
-      getBiens();
-
-      data2 = apiData.values.toList();
-      isLoadingCreerBien.value=false;
-      if (isAdmin.value) {
-        update(['screen_home']);
+      if (isAdministrateur) {
+        update();
+        _crudPost.updateAdminData();
+        getBiens();
+        data2 = apiData.values.toList();
+        isLoadingCreerBien.value=false;
         Get.off(const AdminScreen());
-
       } else {
+        update();
+        _crudPost.updateUserData();
+        getBiens();
+        data2 = apiData.values.toList();
+        isLoadingCreerBien.value=false;
         Get.off(const MainScreen());
       }
-    }else{
+    }
+    else{
       
     }
-    } else {
+    } 
+    else {
       isLoadingCreerBien.value = false;
       showDaialog('186'.tr, '191'.tr);
     }
@@ -385,12 +393,15 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
   }
   @override
   Future<void> deleteBien(int bie) async {
+    isLoading.value = true;
     try {
       await _crudPost.deleteItem(bie);
-      update(['admin_home']);
       print("delete avec sucess");
-       AdminScreen();
-      // getBiens();
+      update();
+      _crudPost.updateAdminData();
+      getBiens();
+      isLoading.value = false;
+      Get.off(const AdminScreen());
     } catch (e) {
       print("delete error");
     }
@@ -415,6 +426,22 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
   }
   @override
   choixLangue() {
+
     Get.toNamed(AppRoutes.langue);
+  }
+
+  void logout() async {
+    await authService.setUserId(0);
+    await authService.setIsAdmin(false);
+    await authService.setutilisateurExiste(false);
+    iduser = 0;
+    isAdministrateur =false;
+    isAdmin = false.obs;
+    update();
+    _crudPost.updateAdminData();
+    _crudPost.updateUserData();
+    print(iduser);
+    print(isAdministrateur);
+    Get.toNamed(AppRoutes.main);
   }
 }

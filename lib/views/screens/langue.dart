@@ -1,48 +1,65 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace, camel_case_types, file_names
-
 import 'package:akarat/views/layouts/changelangue.dart';
-import 'package:akarat/views/widgets/AnnonceBtn.dart';
+import 'package:akarat/views/themes/colors.dart';
 import 'package:akarat/views/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 class langue extends GetView<LocalController> {
   const langue({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    String selectedLanguage = 'fr';
-    return Scaffold(
-     appBar: AppBarCustam(title: '8'.tr),
+    RxString selectedLanguage = 'fr'.obs;
 
-      body: Column(
-        children: [
-          ListTile(
-            title: Text('Français'),
-            onTap: () {
-              selectedLanguage = 'fr';
-            },
-            selected: selectedLanguage == 'fr', 
-          ),
-          ListTile(
-            title: Text('العربية'),
-            onTap: () {
-              selectedLanguage = 'ar';
-            },
-            selected: selectedLanguage == 'ar', 
-          ),
-          AnnonceBtn(
-            onpressed: (){
-              controller.changeLang(selectedLanguage);
-              selectedLanguage = selectedLanguage;
-            }, 
-            text:'Changer de Langue'),
-          // ElevatedButton(
-          //   onPressed: () {
-          //     controller.changeLang(selectedLanguage);
-          //     selectedLanguage = selectedLanguage;
-          //   },
-          //   child: Text('Changer de Langue'),
-          // ),
-        ],
+    return Scaffold(
+      appBar: AppBarCustam(title: '8'.tr),
+      body: Obx(() {
+          return Column(
+            children: [
+              Expanded(
+                child: Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 235, 235, 235),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ListTile(
+                        title:const Text('Français',
+                        style: TextStyle(fontSize: 20, color: AppColor.black, fontWeight: FontWeight.bold)),
+                        onTap: () {
+                          selectedLanguage.value = 'fr';
+                          controller.changeLang(selectedLanguage.value);
+                        },
+                        trailing: selectedLanguage.value == 'fr' ? const Icon(Icons.check_circle_outlined, color: Colors.green) :const Icon(Icons.check_circle_outlined, color: Colors.black),
+                        selectedTileColor: selectedLanguage.value == 'fr' ? Colors.grey.withOpacity(0.5) : null,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 235, 235, 235),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: ListTile(
+                        title:const  Text('العربية',
+                        style: TextStyle(fontSize: 20, color: AppColor.black, fontWeight: FontWeight.bold)),
+                        onTap: () {
+                          selectedLanguage.value = 'ar';
+                          controller.changeLang(selectedLanguage.value);
+                        },
+                        trailing: selectedLanguage.value == 'ar' ?const Icon(Icons.check_circle_outlined, color: Colors.green) : const Icon(Icons.check_circle_outlined, color: Colors.black),
+                        selectedTileColor: selectedLanguage.value == 'ar' ? Colors.grey.withOpacity(0.5) : null,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              
+            ],
+          );
+        }
       ),
     );
   }

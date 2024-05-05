@@ -77,8 +77,11 @@ class CrudPost {
   void updateUserData() {
   var controller = Get.find<biensImmobiliersControllerImp>();
   controller.update(['bien_home', 'bien_main']);
-  
-}
+  }
+  void updateAdminData() {
+  var controller = Get.find<biensImmobiliersControllerImp>();
+  controller.update(['screen_home', 'main_admin']);
+  }
 Future<Map<String, Biens_immobiliers>> createImmobilie(String url, Map<String, dynamic> data, List<XFile> imageList) async {
   try {
     var request = http.MultipartRequest('POST', Uri.parse(url));

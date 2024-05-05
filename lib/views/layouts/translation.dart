@@ -180,8 +180,8 @@ class MyTranslations extends Translations {
           "188": "تم التسجيل بنجاح",
           "189": "نجاح",
           "190":"إضافة الصور",
-          "191":"تحتاج إلى إضافة الصور"
-
+          "191":"تحتاج إلى إضافة الصور",
+          "192":"تسجيل الخروج"
         },
         "fr": {
           "1": "Immobilier",
@@ -360,7 +360,8 @@ class MyTranslations extends Translations {
            "188":"Inscription réussie",
            "189":"Succès",
            "190":"Ajoute des imanges",
-           "191":"Vous devrez Ajoute des imanges"
+           "191":"Vous devrez Ajoute des imanges",
+           "192":"Déconnexion"
         }
       };
 }

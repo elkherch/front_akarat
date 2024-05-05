@@ -3,8 +3,27 @@ import 'package:akarat/controllers/biens_immobiliers_controllers.dart';
 import 'package:akarat/controllers/publicite/p1_controller.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
+   static const String _userIdKey = 'iduser';
+   static const String _isAdminKey = 'isAdministrateur';
+   static const String _utilisateurExiste = 'utilisateurExiste';
+  
+  Future<void> setIsAdmin(bool isAdmin) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_isAdminKey, isAdmin);
+  }
+  Future<void> setutilisateurExiste(bool utilisateurExiste) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_utilisateurExiste, utilisateurExiste);
+  }
+  Future<void> setUserId(int userId) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(_userIdKey, userId);
+  }
+
+  
   Future<Map<String, dynamic>?> signUp(String url, Map data) async {
   try {
     var response = await http.post(
