@@ -1,5 +1,6 @@
 import 'package:akarat/controllers/register_controller.dart';
 import 'package:akarat/utils/valide_input.dart';
+import 'package:akarat/views/themes/colors.dart';
 import 'package:akarat/views/widgets/AnnonceBtn.dart';
 import 'package:akarat/views/widgets/TextFieldForm.dart';
 import 'package:akarat/views/widgets/app_bar.dart';
@@ -152,7 +153,10 @@ class Register extends StatelessWidget {
                 ? Container(
                     color: Colors.black.withOpacity(0.5), // Opacité de l'arrière-plan
                     child:const Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                           color:AppColor.backgroundcolor, 
+                           strokeWidth: 2,
+                      ),
                     ),
                   )
                 : SizedBox.shrink();

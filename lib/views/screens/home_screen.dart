@@ -1,4 +1,5 @@
 import 'package:akarat/controllers/biens_immobiliers_controllers.dart';
+import 'package:akarat/views/themes/colors.dart';
 import 'package:akarat/views/widgets/trip_biens.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -59,10 +60,13 @@ class HomeScreen extends StatelessWidget {
                 ? Container(
                     color: Colors.black.withOpacity(0.5), // Opacité de l'arrière-plan
                     child:const Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                           color:AppColor.backgroundcolor, 
+                           strokeWidth: 2,
+                      )
                     ),
                   )
-                : SizedBox.shrink();
+                :const SizedBox.shrink();
           }),
              ],
            );

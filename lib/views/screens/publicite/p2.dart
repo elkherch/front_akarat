@@ -9,13 +9,19 @@ import 'package:akarat/utils/valide_input.dart';
 import 'package:akarat/views/themes/colors.dart';
 import 'package:akarat/views/widgets/TextField.dart';
 
-class Informations2 extends StatelessWidget {
+class Informations2 extends StatefulWidget {
   Informations2({Key? key}) : super(key: key);
 
-  List<String> villes = ['Ville','39'.tr,'40'.tr, '41'.tr, '68'.tr,'69'.tr,'70'.tr,'71'.tr,'72'.tr,'73'.tr,'75'.tr,'76'.tr,'77'.tr];
+  @override
+  State<Informations2> createState() => _Informations2State();
+}
+
+class _Informations2State extends State<Informations2> {
+  List<String> villes = ['193'.tr,'39'.tr,'40'.tr, '41'.tr, '68'.tr,'69'.tr,'70'.tr,'71'.tr,'72'.tr,'73'.tr,'75'.tr,'76'.tr,'77'.tr];
+
   Map<String, List<String>> quartiers = {
-    'Ville': [''],
-    '39'.tr: ['36'.tr, 'Quartier B', 'Quartier C'],
+    '193'.tr: [''],
+    '39'.tr: ['182'.tr, '183'.tr],
     '40'.tr: ['169'.tr, '170'.tr, '171'.tr,'172'.tr,'173'.tr,'174'.tr,'175'.tr,'176'.tr,'177'.tr],
     '41'.tr: ['124'.tr, '125'.tr, '126'.tr, '127'.tr, '128'.tr, '129'.tr,],
     '68'.tr: ['130'.tr, '131'.tr,'132'.tr,'133'.tr],
@@ -30,12 +36,16 @@ class Informations2 extends StatelessWidget {
     '77'.tr: ['167'.tr, '168'.tr],
 
   };
-  ValueNotifier<String> selectedVille = ValueNotifier<String>('Ville');
+
+  ValueNotifier<String> selectedVille = ValueNotifier<String>('193'.tr);
+
   ValueNotifier<String?> selectedQuartier = ValueNotifier<String?>(null);
+
 final List<String> dropdownValues2 = [
   '42'.tr,
   '44'.tr,
 ];
+
 
 final List<String> dropdownLabels2 = [
   '42'.tr,
@@ -56,6 +66,7 @@ final List<String> dropdownLabels3 = [
     return Scaffold(
       appBar: AppBarCustam(title: '6'.tr,),
       body: GetBuilder<Informations2ControllerImp>(
+        init:Informations2ControllerImp() ,
         builder: (controller) {
           return Container(
             padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 40),
@@ -79,7 +90,7 @@ final List<String> dropdownLabels3 = [
                      borderSide: const BorderSide(color: AppColor.black),
                    ),
                  ),
-                  value: 'Ville',
+                  value: '193'.tr,
                   onChanged: (value) {
                     selectedVille.value = value!;
                     if (quartiers[value]!.isNotEmpty) {

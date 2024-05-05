@@ -22,26 +22,30 @@ class Informations1ControllerImp extends Informations1Controller {
   final GlobalKey<FormState> formkeyS = GlobalKey<FormState>();
   late int iduser;
   late List<Biens_immobiliers> data2 = [];
-  String selectedNbBien = 'صالة';
-
-  String selectedNbBien1 = 'غرفة';
+  String selectedNbBien = '';
+  String selectedNbBien1 ='';
   String selectedCategory = '';
   @override
   void onInit() {
+   selectedCategory = '';
+    selectedNbBien1 ='';
+    selectedNbBien = '';
     iduser = myServices.sharedPreferences.getInt("iduser") ?? 0;
     super.onInit();
   }
   @override
   void dispose() {
+   selectedCategory = '';
+    selectedNbBien1 ='';
+    selectedNbBien = '';
     typeAnController.dispose();
     descrController.dispose();
     super.dispose();
   }
-
   @override
   void goToSuivant() {
 
-    if (selectedNbBien == 'صالة' || selectedNbBien1 == 'غرفة') {
+    if (selectedNbBien == 'صالة' || selectedNbBien1 == 'غرفة' || selectedNbBien == 'Salon' || selectedNbBien1 == 'Chambre') {
       Get.toNamed(AppRoutes.publicite2, arguments: {
         'typeAn': typeAnController.text,
         'descr': descrController.text,
@@ -62,8 +66,8 @@ class Informations1ControllerImp extends Informations1Controller {
     typeAnController.text ='';
     descrController.text ='';
     selectedCategory ='';
-    selectedNbBien ='صالة';
-    selectedNbBien1='غرفة';
+    selectedNbBien = '';
+    selectedNbBien1='';
   }
 
   @override

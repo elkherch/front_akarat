@@ -2,7 +2,6 @@ import 'package:akarat/controllers/biens_immobiliers_controllers.dart';
 import 'package:akarat/views/themes/colors.dart';
 import 'package:akarat/views/widgets/AnnonceBtn.dart';
 import 'package:akarat/views/widgets/TextField.dart';
-import 'package:akarat/views/widgets/TextFieldForm.dart';
 import 'package:akarat/views/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,9 +22,9 @@ class _RechercherImmobilieState extends State<RechercherImmobilie> {
     '66'.tr, '67'.tr,
   ];
   
-  List<String> villes = ['Ville','39'.tr,'40'.tr, '41'.tr, '68'.tr,'69'.tr,'70'.tr,'71'.tr,'72'.tr,'73'.tr,'75'.tr,'76'.tr,'77'.tr];
+  List<String> villes = ['193'.tr,'39'.tr,'40'.tr, '41'.tr, '68'.tr,'69'.tr,'70'.tr,'71'.tr,'72'.tr,'73'.tr,'75'.tr,'76'.tr,'77'.tr];
   Map<String, List<String>> quartiers = {
-    'Ville': [''],
+    '193'.tr: [''],
     '39'.tr: ['182'.tr, '183'.tr],
     '40'.tr: ['169'.tr, '170'.tr, '171'.tr,'172'.tr,'173'.tr,'174'.tr,'175'.tr,'176'.tr,'177'.tr],
     '41'.tr: ['124'.tr, '125'.tr, '126'.tr, '127'.tr, '128'.tr, '129'.tr,],
@@ -41,7 +40,7 @@ class _RechercherImmobilieState extends State<RechercherImmobilie> {
     '77'.tr: ['167'.tr, '168'.tr],
 
   };
-  ValueNotifier<String> selectedVille = ValueNotifier<String>('Ville');
+  ValueNotifier<String> selectedVille = ValueNotifier<String>('193'.tr);
   ValueNotifier<String?> selectedQuartier = ValueNotifier<String?>(null);
   String? selectedCategorie;
   @override
@@ -103,7 +102,7 @@ class _RechercherImmobilieState extends State<RechercherImmobilie> {
                      borderSide: const BorderSide(color: AppColor.black),
                    ),
                  ),
-                  value: 'Ville',
+                  value: '193'.tr,
                   onChanged: (value) {
                     selectedVille.value = value!;
                     if (quartiers[value]!.isNotEmpty) {

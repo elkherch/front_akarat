@@ -6,8 +6,8 @@ import 'package:akarat/controllers/biens_immobiliers_controllers.dart';
 import 'package:akarat/controllers/publicite/p1_controller.dart';
 import 'package:akarat/services/iniHive.dart';
 import 'package:akarat/services/services.dart';
-import 'package:akarat/views/layouts/changelangue.dart';
-import 'package:akarat/views/layouts/translation.dart';
+import 'package:akarat/localization/changelangue.dart';
+import 'package:akarat/localization/translation.dart';
 import 'package:akarat/views/screens/add_annoce.dart';
 import 'package:akarat/views/screens/annonce.dart';
 import 'package:akarat/views/screens/favorie_screen.dart';
@@ -62,6 +62,8 @@ class MyApp extends StatelessWidget {
       initialBinding: BindingsBuilder(() {
         Get.put(CrudPost());
         Get.put(CrudGet());
+        Get.put(Informations1ControllerImp());
+
         Get.put(controllerBien);
       }),
       getPages: [

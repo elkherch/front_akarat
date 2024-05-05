@@ -24,6 +24,7 @@ class AppBarCustam extends StatelessWidget implements PreferredSizeWidget {
         icon:const Icon(Icons.arrow_back , color: AppColor.whiteColor,), // Icône à gauche de l'AppBar
         onPressed: () {
           Get.until((route) => route.isFirst);
+          // Get.back();
         },
       ),
     );

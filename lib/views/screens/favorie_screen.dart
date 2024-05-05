@@ -1,5 +1,6 @@
 import 'package:akarat/bien.dart';
 import 'package:akarat/controllers/biens_immobiliers_controllers.dart';
+import 'package:akarat/views/themes/colors.dart';
 import 'package:akarat/views/widgets/trip_biens.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -23,7 +24,10 @@ class FavorieScreen extends StatelessWidget {
                   future: _getFavorieBiens(),
                   builder: (context, AsyncSnapshot<List<Biens_immobilieHive>> snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
+                      return const Center(child:CircularProgressIndicator(
+                           color:AppColor.backgroundcolor, 
+                           strokeWidth: 2,
+                      ));
                     } else if (snapshot.hasError) {
                       return Center(child: Text('Error: ${snapshot.error}'));
                     } else {

@@ -91,7 +91,10 @@ class Informations3 extends StatelessWidget {
                 ? Container(
                     color: Colors.black.withOpacity(0.5), // Opacité de l'arrière-plan
                     child:const Center(
-                      child: CircularProgressIndicator(),
+                      child:CircularProgressIndicator(
+                           color:AppColor.backgroundcolor, 
+                           strokeWidth: 2,
+                      ),
                     ),
                   )
                 : SizedBox.shrink();

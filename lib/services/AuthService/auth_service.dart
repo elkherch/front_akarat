@@ -111,4 +111,8 @@ void updateUserData(int userId) {
   // Déclencher une mise à jour de l'interface utilisateur pour refléter les nouvelles données utilisateur
   controllerParametre.update(['bien_p1']);
 }
+void updateUser() {
+  var controllerParametre = Get.find<Informations1ControllerImp>();
+  controllerParametre.update(['bien_p1']);
+}
 }

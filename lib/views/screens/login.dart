@@ -3,6 +3,7 @@
 import 'package:akarat/controllers/Login_controller.dart';
 import 'package:akarat/controllers/biens_immobiliers_controllers.dart';
 import 'package:akarat/utils/valide_input.dart';
+import 'package:akarat/views/themes/colors.dart';
 import 'package:akarat/views/widgets/TextFieldForm.dart';
 import 'package:akarat/views/widgets/app_bar.dart';
 import 'package:akarat/views/widgets/loginButtom.dart';
@@ -89,7 +90,10 @@ class Login extends StatelessWidget {
                 ? Container(
                     color: const Color(0xFF818181).withOpacity(0.5),
                     child:const Center(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                           color:AppColor.backgroundcolor, 
+                           strokeWidth: 2,
+                      ),
                     ),
                   )
                 : const SizedBox.shrink();

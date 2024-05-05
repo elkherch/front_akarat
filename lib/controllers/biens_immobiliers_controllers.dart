@@ -373,7 +373,9 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
   }
   @override
   addAnnoce() {
+    authService.updateUser();
     Get.toNamed(AppRoutes.publicite);
+    
   }
   @override
   annonce() {
@@ -416,9 +418,9 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
   }
  @override
   addannonce() {
-    update(['bien_p1']);
+    authService.updateUser();
+    update();
     if (iduser != 0) {
-      
      Get.toNamed(AppRoutes.publicite);
     }else{
       showAjouteDaialog();

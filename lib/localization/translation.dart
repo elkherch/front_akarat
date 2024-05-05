@@ -181,7 +181,11 @@ class MyTranslations extends Translations {
           "189": "نجاح",
           "190":"إضافة الصور",
           "191":"تحتاج إلى إضافة الصور",
-          "192":"تسجيل الخروج"
+          "192":"تسجيل الخروج",
+          "193": "مدينة",
+           "194": "صالة",
+          "195": "غرفة",
+
         },
         "fr": {
           "1": "Immobilier",
@@ -361,7 +365,10 @@ class MyTranslations extends Translations {
            "189":"Succès",
            "190":"Ajoute des imanges",
            "191":"Vous devrez Ajoute des imanges",
-           "192":"Déconnexion"
+           "192":"Déconnexion",
+           "193":"Ville",
+            "194": "Salon",
+          "195": "Chambre",
         }
       };
 }

@@ -29,14 +29,14 @@ class _Informations1State extends State<Informations1> {
     '66'.tr, '67'.tr,
   ];
 
-  final List<String> dropdownValuesNumber = ['صالة','1', '2', '3', '4', '5', '6', '7', '8', '9', '10',];
-  final List<String> dropdownLabelsNumber = ['صالة','1', '2', '3', '4', '5', '6', '7', '8', '9', '10',];
+  final List<String> dropdownValuesNumber = ['194'.tr,'1', '2', '3', '4', '5', '6', '7', '8', '9', '10',];
+  final List<String> dropdownLabelsNumber = ['194'.tr,'1', '2', '3', '4', '5', '6', '7', '8', '9', '10',];
 
-  final List<String> dropdownValuesNumberI = ['غرفة','1', '2', '3', '4', '5', '6', '7', '8', '9', '10',];
-  final List<String> dropdownLabelsNumberI = ['غرفة','1', '2', '3', '4', '5', '6', '7', '8', '9', '10',];
-
+  final List<String> dropdownValuesNumberI = ['195'.tr,'1', '2', '3', '4', '5', '6', '7', '8', '9', '10',];
+  final List<String> dropdownLabelsNumberI = ['195'.tr,'1', '2', '3', '4', '5', '6', '7', '8', '9', '10',];
   @override
   Widget build(BuildContext context) {
+    
     Informations1ControllerImp controller = Get.put(Informations1ControllerImp());
     return Scaffold(
       appBar: AppBarCustam(title: '6'.tr,),
@@ -88,7 +88,7 @@ class _Informations1State extends State<Informations1> {
                         Expanded(
                           flex: 3,
                           child: DropDownAjoute(
-                            value: controller.selectedNbBien,
+                            value: controller.selectedNbBien.isNotEmpty ? controller.selectedNbBien : dropdownValuesNumber.first,
                             values: dropdownValuesNumber,
                             labels: dropdownLabelsNumber,
                             onChanged: (value) {
@@ -102,7 +102,7 @@ class _Informations1State extends State<Informations1> {
                         Expanded(
                           flex: 3,
                           child: DropDownAjoute(
-                            value: controller.selectedNbBien1,
+                            value: controller.selectedNbBien1.isNotEmpty ? controller.selectedNbBien1 : dropdownValuesNumberI.first,
                             values: dropdownValuesNumberI,
                             labels: dropdownLabelsNumberI,
                             onChanged: (value) {
