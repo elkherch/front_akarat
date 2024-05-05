@@ -1,4 +1,4 @@
-// ignore_for_file: unused_local_variable, unnecessary_brace_in_string_interps
+// ignore_for_file: unused_local_variable, unnecessary_brace_in_string_interps, non_constant_identifier_names
 
 import 'package:akarat/controllers/biens_immobiliers_controllers.dart';
 import 'package:akarat/views/themes/colors.dart';
@@ -26,15 +26,16 @@ class BiensAdmin extends StatelessWidget {
     required this.lien, 
     required this.prix,
     required this.idbien,
-     required this.nombre_de_salles_de_bains, required this.nombre_de_salles_de_sals, this.onpressed, this.allImages,
+     required this.nombre_de_salles_de_bains, required this.nombre_de_salles_de_sals,required this.onpressed, this.allImages,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     biensImmobiliersControllerImp controller = Get.put(biensImmobiliersControllerImp());
     
+    
     return GetBuilder<biensImmobiliersControllerImp>(
-      id: "trip_bien",
+      id: "bien_adminn",
       init: controller,
       builder: (controller) {
         return InkWell(
@@ -58,7 +59,7 @@ class BiensAdmin extends StatelessWidget {
                               height: 180,
                               color: Colors.grey,
                               child: const Center(
-                                child:  Icon(Icons.image, size: 40, color: AppColor.grey300,),
+                                child:  Icon(Icons.image, size: 40, color: AppColor.black,),
                               ),
                             ),
                         ],
@@ -79,8 +80,9 @@ class BiensAdmin extends StatelessWidget {
                         const  Spacer(),
                         IconButton(
                           onPressed: onpressed,
-                           icon:const  Icon(
-                             Icons.favorite,
+                           icon: const Icon(
+                             Icons.delete,
+                             color: Colors.red,
                             )
                            )
                         ],

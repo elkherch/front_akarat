@@ -16,6 +16,8 @@ class AppRoutes{
   static const publicite3 = "/info3";
   static const recherche = "/recherche";
   static const langue = "/langue";
+  static const mainAdmin = "/mainAdmin";
+
 
 
 

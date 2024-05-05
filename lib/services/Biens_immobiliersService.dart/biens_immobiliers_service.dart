@@ -39,7 +39,7 @@ class CrudPost {
   }
 }
   Future<void> deleteItem(int bien_id) async {
-    final url = 'http://10.0.2.2:8000/delete_bien/$bien_id/'; // Remplacez cette URL par l'URL de votre API Django pour la suppression
+    final url = 'http://khdev.pythonanywhere.com/delete_bien/$bien_id/'; // Remplacez cette URL par l'URL de votre API Django pour la suppression
     final response = await http.delete(Uri.parse(url));
     if (response.statusCode == 200) {
       return;

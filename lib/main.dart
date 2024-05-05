@@ -1,3 +1,7 @@
+import 'package:akarat/services/Biens_immobiliersService.dart/biens_immobiliers_service.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:akarat/views/DashboardAdmin/adminScreen.dart';
 import 'package:akarat/controllers/biens_immobiliers_controllers.dart';
 import 'package:akarat/controllers/publicite/p1_controller.dart';
 import 'package:akarat/services/iniHive.dart';
@@ -20,10 +24,6 @@ import 'package:akarat/views/screens/rechercher_immobilie.dart';
 import 'package:akarat/views/screens/register.dart';
 import 'package:akarat/views/screens/resoult.dart';
 import 'package:akarat/views/themes/routes.dart';
-import 'package:akarat/views/widgets/trip_detail_biens.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'services/Biens_immobiliersService.dart/biens_immobiliers_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,27 +34,40 @@ void main() async {
   Get.put(MyTranslations());
   Get.put(biensImmobiliersControllerImp());
   Get.put(Informations1ControllerImp());
-  // Get.put(Informations2ControllerImp());
+  final Myservices myServices = Get.find();
 
-  runApp(const MyApp());
+  bool isAdmin = myServices.sharedPreferences.getBool("isAdministrateur") ?? false;
+  Widget initialScreen = isAdmin ? const AdminScreen() :  const MainScreen();
+  runApp( MyApp(initialScreen: initialScreen));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final Widget initialScreen;
+
+   MyApp({Key? key, required this.initialScreen}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     LocalController controller = Get.put(LocalController());
+    biensImmobiliersControllerImp controllerBien = Get.put(biensImmobiliersControllerImp());
+
     return GetMaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       translations: MyTranslations(),
       locale: controller.language,
       theme: controller.apptheme,
-      initialRoute: '/main',
+      // initialRoute: initialScreen,
+      home: initialScreen,
+      initialBinding: BindingsBuilder(() {
+        Get.put(CrudPost());
+        Get.put(CrudGet());
+        Get.put(controllerBien);
+      }),
       getPages: [
         GetPage(name: AppRoutes.langue, page: () => const langue()),
         GetPage(name: AppRoutes.main, page: () => const MainScreen()),
+        GetPage(name: AppRoutes.mainAdmin, page: () => const AdminScreen()),
         GetPage(name: AppRoutes.home, page: () => const HomeScreen()),
         GetPage(name: AppRoutes.favorie, page: () => const FavorieScreen()),
         GetPage(name: AppRoutes.map, page: () => const MapScreen()),
@@ -66,12 +79,9 @@ class MyApp extends StatelessWidget {
         GetPage(name: AppRoutes.parametre, page: () => const Parametre()),
         GetPage(name: AppRoutes.login, page: () =>const Login()),
         GetPage(name: AppRoutes.publicite, page: () => const Informations1()),
-                GetPage(name: AppRoutes.publicite2, page: () => Informations2()),
+        GetPage(name: AppRoutes.publicite2, page: () => Informations2()),
         GetPage(name: AppRoutes.publicite3, page: () =>const Informations3()),
         GetPage(name: AppRoutes.recherche, page: () =>const ReloultScreen()),
-
-
-
       ],
     );
   }

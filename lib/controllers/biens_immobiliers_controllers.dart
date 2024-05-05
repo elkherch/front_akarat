@@ -9,7 +9,6 @@ import 'package:akarat/utils/statusRequest.dart';
 import 'package:akarat/views/DashboardAdmin/adminScreen.dart';
 import 'package:akarat/views/layouts/show.dart';
 import 'package:akarat/views/layouts/showCustom.dart';
-import 'package:akarat/views/screens/annonce.dart';
 import 'package:akarat/views/screens/main_screen.dart';
 import 'package:akarat/views/themes/api.dart';
 import 'package:akarat/views/themes/routes.dart';
@@ -267,8 +266,9 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
       data2 = apiData.values.toList();
       isLoadingCreerBien.value=false;
       if (isAdmin.value) {
-        update(['admin_home']);
+        update(['screen_home']);
         Get.off(const AdminScreen());
+
       } else {
         Get.off(const MainScreen());
       }
@@ -315,6 +315,8 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
 
         update();
         update(['bien_home']);
+        update(['screen_home']);
+
       },
     );
    
@@ -339,10 +341,12 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
       isLoading.value = false;
       update(['bien_parametre']);
       if (dataLogin!['is_superuser']) {
+        myServices.sharedPreferences.setBool("isAdministrateur", true);
         isAdmin.value = true;
-        Get.to(const AdminScreen());
+        Get.off(const AdminScreen());
+        
       } else {
-        Get.to(const MainScreen());
+        Get.off(const MainScreen());
       }
     }
     else{
@@ -380,12 +384,13 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
     }
   }
   @override
-  deleteBien(int bie) async {
+  Future<void> deleteBien(int bie) async {
     try {
       await _crudPost.deleteItem(bie);
       update(['admin_home']);
-      getBiens();
       print("delete avec sucess");
+       AdminScreen();
+      // getBiens();
     } catch (e) {
       print("delete error");
     }

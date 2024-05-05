@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 
 class Parametre extends StatelessWidget {
   const Parametre({super.key});
-
   @override
   Widget build(BuildContext context) {
     biensImmobiliersControllerImp controller = Get.put(biensImmobiliersControllerImp());
@@ -29,7 +28,7 @@ class Parametre extends StatelessWidget {
                   '90'.tr,
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 400),
+                const SizedBox(height: 350),
                 AnnonceBtn(onpressed: (){controller.signUp();}, text: '84'.tr,)
               ],
             ),

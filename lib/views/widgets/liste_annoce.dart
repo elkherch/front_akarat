@@ -85,7 +85,8 @@ class TripAnnonce extends StatelessWidget {
                            IconButton(
                           onPressed: onPressed,
                            icon:const  Icon(
-                             Icons.favorite,
+                             Icons.delete,
+                             color: Colors.red,
                             )
                            )
 

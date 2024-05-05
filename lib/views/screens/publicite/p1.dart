@@ -56,7 +56,7 @@ class _Informations1State extends State<Informations1> {
                   '90'.tr,
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 400),
+                const SizedBox(height: 350),
                 AnnonceBtn(onpressed: (){controller.creerCompte();}, text: '84'.tr,)
               ],
             ),

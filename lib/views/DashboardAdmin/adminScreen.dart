@@ -1,72 +1,67 @@
-// ignore_for_file: sort_child_properties_last
+// Fichier admin_screen.dart
 
+import 'package:akarat/views/DashboardAdmin/adminHome.dart';
+import 'package:akarat/views/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:akarat/controllers/biens_immobiliers_controllers.dart';
-import 'package:akarat/views/screens/favorie_screen.dart';
-import 'package:akarat/views/screens/home_screen.dart';
-import 'package:akarat/views/screens/map_screen.dart';
 import 'package:akarat/views/themes/colors.dart';
-import 'package:akarat/views/widgets/bottom_nav_bar.dart';
 import 'package:akarat/views/widgets/custom_app_bar.dart';
-import 'package:akarat/views/widgets/drawer.dart';
 
 class AdminScreen extends StatefulWidget {
   const AdminScreen({Key? key}) : super(key: key);
+
   @override
   State<AdminScreen> createState() => _AdminScreenState();
 }
 
 class _AdminScreenState extends State<AdminScreen> {
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  final biensImmobiliersControllerImp controller =
-      Get.put(biensImmobiliersControllerImp());
-
+  
+  final GlobalKey<ScaffoldState> scaffoldKeyI = GlobalKey<ScaffoldState>();
+  final biensImmobiliersControllerImp controller = Get.put(biensImmobiliersControllerImp());
   @override
   Widget build(BuildContext context) {
+     return GetBuilder<biensImmobiliersControllerImp>(
+      id: "main_admin",
 
-    return GetBuilder<biensImmobiliersControllerImp>(
-      id: "bien_main",
       init: biensImmobiliersControllerImp(),
       builder: (context) {
-        return Scaffold(
-          key: _scaffoldKey,
-          appBar: CustomAppBar(
-            title: "1".tr,
-            onSearchPressed: () {
-              controller.rechercher();
+     return Scaffold(
+      key: scaffoldKeyI,
+      appBar: CustomAppBar(
+        title: "1".tr,
+        onSearchPressed: () {
+          controller.rechercher();
+        },
+        onDrawerPressed: () {
+          scaffoldKeyI.currentState?.openDrawer();
+        },
+        isFrench: false,
+      ),
+      body: GetBuilder<biensImmobiliersControllerImp>(
+        builder: (controller) {
+          return const AdminHomeScreen();
+        },
+      ),
+      drawer: AppDrawer(
+        drawerItems: [
+          DrawerItem(
+            title: '8'.tr,
+            icon: Icons.language,
+            onTap: () {
+              controller.choixLangue();
             },
-            onDrawerPressed: () {
-              _scaffoldKey.currentState?.openDrawer();
-            },
-            isFrench: false,
           ),
-          
-          body: GetBuilder<biensImmobiliersControllerImp>(
-            builder: (controller) {
-              return const HomeScreen();
+          DrawerItem(
+            title: '6'.tr,
+            icon: Icons.add_box,
+            onTap: () {
+              controller.addAnnoce();
             },
           ),
-          drawer: AppDrawer(
-            drawerItems: [
-              DrawerItem(
-                title: '8'.tr,
-                icon: Icons.language,
-                onTap: () {
-                  controller.choixLangue();
-                },
-              ),
-              
-              DrawerItem(
-                title: '6'.tr,
-                icon: Icons.add_box,
-                onTap: () {
-                  controller.addAnnoce();
-                },
-              ),
-            ],
-          ),
-          floatingActionButton:  Row(
+        ],
+      ),
+      floatingActionButton:  Row(
           mainAxisAlignment: MainAxisAlignment.end,
      children: [
       TextButton(
@@ -89,16 +84,11 @@ class _AdminScreenState extends State<AdminScreen> {
           ),
         ],
       ),
-      style: ButtonStyle(
-        
-        backgroundColor: MaterialStateProperty.all(AppColor.whiteColor), // Couleur de fond du bouton
-      ),
-    ),
+      )
+     ]
+      )
     
-  ],
-),
-        );
-      }
     );
+  });
   }
 }

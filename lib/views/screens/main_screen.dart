@@ -56,7 +56,6 @@ class _MainScreenState extends State<MainScreen> {
             },
           ),
           drawer: AppDrawer(
-            
             drawerItems: [
               DrawerItem(
                 title: '8'.tr,

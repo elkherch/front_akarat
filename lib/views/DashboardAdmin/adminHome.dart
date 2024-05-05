@@ -1,8 +1,9 @@
-// ignore_for_file: unused_local_variable
+// Fichier admin_home_screen.dart
+
+// ignore_for_file: use_key_in_widget_constructors
 
 import 'package:akarat/controllers/biens_immobiliers_controllers.dart';
 import 'package:akarat/views/widgets/bien_admin.dart';
-import 'package:akarat/views/widgets/trip_biens.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,66 +13,54 @@ class AdminHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<biensImmobiliersControllerImp>(
-        id: "admin_home",
+        id: "screen_home",
         init: biensImmobiliersControllerImp(),
         builder: (controller) {
-          return 
-           Stack(
-             children: [
-               Column(
-                children: [
-                  Expanded(
-                    child:ListView.builder(
-                      itemCount: controller.biens.length,
-                      itemBuilder: (context, index) {
-                        final bien = controller.biens[index];
-                        String? imageUrl;
-                        if (bien.images != null && bien.images!.isNotEmpty) {
-                          String imagePath = bien.images![0];
-                          if (!imagePath.startsWith("http://") &&
-                              !imagePath.startsWith("https://")) {
-                            imageUrl =
-                                "http://khdev.pythonanywhere.com" + imagePath;
-                          } else {
-                            imageUrl = imagePath; // L'image a déjà une URL complète
-                          }
-                        }
-                        return BiensAdmin(
-                          onpressed: () {
-                            controller.deleteBien(bien.bienID!);
-                          },
-                          allImages: bien.images,
-                          title: bien.categorie ?? "default value",
-                          surface: "${bien.surface ?? "default value"}",
-                          lien: "${bien.region ?? "default value"}",
-                          prix: "${bien.prix ?? "default value"}",
-                          idbien: bien.bienID ?? 0,
-                          nombre_de_salles_de_bains:
-                              bien.nombre_de_salles_de_bains ?? 0,
-                          nombre_de_salles_de_sals:
-                              bien.nombre_de_salles_de_sals ?? 0,
-                        );
-                      },
-                    )
-                    
+      return Stack(
+      children: [
+        Column(
+          children: [
+            Expanded(
+              child: ListView.builder(
+                itemCount: controller.biens.length,
+                itemBuilder: (context, index) {
+                  final bien = controller.biens[index];
+                  String? imageUrl = bien.images?.isNotEmpty ?? false ? bien.images![0] : null;
+                  if (imageUrl != null && !imageUrl.startsWith("http://") && !imageUrl.startsWith("https://")) {
+                    imageUrl = "http://khdev.pythonanywhere.com" + imageUrl;
+                  }
+
+                  return BiensAdmin(
+                    onpressed: () {
+                      controller.deleteBien(bien.bienID!);
+                    },
+                    allImages: bien.images,
+                    title: bien.categorie ?? "default value",
+                    surface: "${bien.surface ?? "default value"}",
+                    lien: "${bien.region ?? "default value"}",
+                    prix: "${bien.prix ?? "default value"}",
+                    idbien: bien.bienID ?? 0,
+                    nombre_de_salles_de_bains: bien.nombre_de_salles_de_bains ?? 0,
+                    nombre_de_salles_de_sals: bien.nombre_de_salles_de_sals ?? 0,
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+        Obx(() {
+          return controller.isLoading.value
+              ? Container(
+                  color: Colors.black.withOpacity(0.5),
+                  child: const Center(
+                    child: CircularProgressIndicator(),
                   ),
-                ],
-                         ),
-                 Obx(() {
-                   return controller.isLoading.value
-                  ? Container(
-                    color: Colors.black.withOpacity(0.5), // Opacité de l'arrière-plan
-                    child:const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  )
-                : SizedBox.shrink();
-          }),
-             ],
-           );
-          
-        },
-      
+                )
+              :const SizedBox.shrink();
+        }),
+      ],
     );
-  }
+   }
+    );
+}
 }
