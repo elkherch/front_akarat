@@ -49,18 +49,19 @@ class _AdminScreenState extends State<AdminScreen> {
             title: '8'.tr,
             icon: Icons.language,
             onTap: () {
-              controller.choixLangue();
+              controller.choixLangueAdmin();
             },
           ),
           DrawerItem(
             title: '6'.tr,
             icon: Icons.add_box,
             onTap: () {
-              controller.addAnnoce();
+              controller.addAnnoceAdmin();
             },
           ),
           
-        ], onTa: () { controller.logout(); },
+        ],
+         onTa: () { controller.logout(); },
       ),
       floatingActionButton:  Row(
           mainAxisAlignment: MainAxisAlignment.end,

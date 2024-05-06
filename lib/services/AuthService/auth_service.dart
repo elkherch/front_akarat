@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:akarat/controllers/biens_immobiliers_controllers.dart';
+import 'package:akarat/controllers/details_biens_controller.dart';
 import 'package:akarat/controllers/publicite/p1_controller.dart';
+import 'package:akarat/controllers/publiciteAdmin/p1_admin_controller.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -114,5 +116,10 @@ void updateUserData(int userId) {
 void updateUser() {
   var controllerParametre = Get.find<Informations1ControllerImp>();
   controllerParametre.update(['bien_p1']);
+}
+void updateAdmin() {
+
+  var controllerParametre = Get.find<Informations1ControllerAdminImp>();
+  controllerParametre.update(['bien_p1_admin']);
 }
 }

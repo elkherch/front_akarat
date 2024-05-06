@@ -1,4 +1,8 @@
 import 'package:akarat/services/Biens_immobiliersService.dart/biens_immobiliers_service.dart';
+import 'package:akarat/views/DashboardAdmin/langueAdmin.dart';
+import 'package:akarat/views/DashboardAdmin/publiciteAdmin/p1Admin.dart';
+import 'package:akarat/views/DashboardAdmin/publiciteAdmin/p2Admin.dart';
+import 'package:akarat/views/DashboardAdmin/publiciteAdmin/p3Admin.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:akarat/views/DashboardAdmin/adminScreen.dart';
@@ -68,6 +72,7 @@ class MyApp extends StatelessWidget {
       }),
       getPages: [
         GetPage(name: AppRoutes.langue, page: () => const langue()),
+        GetPage(name: AppRoutes.langueAdmin, page: () => const LangeAdmin()),
         GetPage(name: AppRoutes.main, page: () => const MainScreen()),
         GetPage(name: AppRoutes.mainAdmin, page: () => const AdminScreen()),
         GetPage(name: AppRoutes.home, page: () => const HomeScreen()),
@@ -83,6 +88,9 @@ class MyApp extends StatelessWidget {
         GetPage(name: AppRoutes.publicite, page: () =>  Informations1()),
         GetPage(name: AppRoutes.publicite2, page: () => Informations2()),
         GetPage(name: AppRoutes.publicite3, page: () =>const Informations3()),
+            GetPage(name: AppRoutes.publiciteAdmin, page: () =>  Informations1Admin()),
+        GetPage(name: AppRoutes.publicite2Admin, page: () => Informations2Admin()),
+        GetPage(name: AppRoutes.publicite3Admin, page: () =>const Informations3Admin()),
         GetPage(name: AppRoutes.recherche, page: () =>const ReloultScreen()),
       ],
     );

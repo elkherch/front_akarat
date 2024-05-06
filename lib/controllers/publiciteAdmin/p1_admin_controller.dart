@@ -5,11 +5,11 @@ import 'package:akarat/views/themes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-abstract class Informations1Controller extends GetxController {
+abstract class Informations1ControllerAdmin extends GetxController {
   void goToSuivant(String selectedCategory, String selectedChambe, String selectedSalon);
   creerCompte();
 }
-class Informations1ControllerImp extends Informations1Controller {
+class Informations1ControllerAdminImp extends Informations1ControllerAdmin {
   late TextEditingController typeAnController =TextEditingController();
   late TextEditingController descrController =TextEditingController();
   late List<Biens_immobiliers> data1 = [];
@@ -42,7 +42,7 @@ class Informations1ControllerImp extends Informations1Controller {
      print(selectedSalon);
     if (selectedChambe == 'صالة' || selectedSalon == 'غرفة' || selectedChambe == 'Salon' || selectedSalon == 'Chambre') {
       
-      Get.toNamed(AppRoutes.publicite2, arguments: {
+      Get.toNamed(AppRoutes.publicite2Admin, arguments: {
         'typeAn': typeAnController.text,
         'descr': descrController.text,
         'categor': selectedCategory,
@@ -52,7 +52,7 @@ class Informations1ControllerImp extends Informations1Controller {
       typeAnController = TextEditingController();
       descrController = TextEditingController();
     } else {
-      Get.toNamed(AppRoutes.publicite2, arguments: {
+      Get.toNamed(AppRoutes.publicite2Admin, arguments: {
         'typeAn': typeAnController.text,
         'descr': descrController.text,
         'categor': selectedCategory,

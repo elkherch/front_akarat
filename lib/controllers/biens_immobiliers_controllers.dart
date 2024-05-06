@@ -41,6 +41,7 @@ abstract class biensImmobiliersController extends GetxController{
   goToCreer();
   creerCompte();
   goTo();
+  choixLangueAdmin();
   verifierUtilisateur();
   goTorechercher(String categorie,String emplacement, String region);
   getDataListe();
@@ -214,7 +215,7 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
   goToCreer() async {
     isLoadingCreerBien.value = true;
   try {
-    if(imageXFileList.isNotEmpty){
+    // if(imageXFileList.isNotEmpty){
     String typeAnnonceT = Get.arguments['type_de_bien'].toString();
     String descriptionT = Get.arguments['description'].toString();
     String prixT = Get.arguments['prix'].toString();
@@ -282,11 +283,11 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
     else{
       
     }
-    } 
-    else {
-      isLoadingCreerBien.value = false;
-      showDaialog('186'.tr, '191'.tr);
-    }
+    // } 
+    // else {
+    //   isLoadingCreerBien.value = false;
+    //   showDaialog('186'.tr, '191'.tr);
+    // }
   } catch (e) {
     print('Error fetching data: $e');
   }
@@ -377,17 +378,27 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
     authService.updateUser();
     Get.toNamed(AppRoutes.publicite);
   }
+  addAnnoceAdmin() {
+    update();
+    authService.updateUser();
+    Get.toNamed(AppRoutes.publiciteAdmin);
+  }
   @override
   annonce() {
     getDataListe();
     Get.toNamed(AppRoutes.annonce);
   }
   @override
-  deleteItem(int bie) async {
+  Future<void> deleteItem(int bie) async {
+    isLoading.value = true;
     try {
       await _crudPost.deleteItem(bie);
+      update();
       update(['bien_liste']);
+      _crudPost.updateUserData();
+      getBiens();
       getDataListe();
+      isLoading.value = false;
       print("delete avec sucess");
     } catch (e) {
       print("delete error");
@@ -431,19 +442,42 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
 
     Get.toNamed(AppRoutes.langue);
   }
-
-  void logout() async {
+   @override
+  choixLangueAdmin() {
+    Get.toNamed(AppRoutes.langueAdmin);
+  }
+ void logout() async {
+    // Définir l'ID de l'utilisateur sur 0
     await authService.setUserId(0);
+    
+    // Mettre à jour les données de l'utilisateur
+    authService.updateUserData(0);
+    
+    // Définir isAdmin sur false
     await authService.setIsAdmin(false);
+    
+    // Définir utilisateurExiste sur false
     await authService.setutilisateurExiste(false);
+    
+    // Réinitialiser iduser et isAdministrateur
     iduser = 0;
-    isAdministrateur =false;
-    isAdmin = false.obs;
+    isAdministrateur = false;
+    
+    // Mettre à jour les observables
+    isAdmin.value = false;
     update();
+    
+    // Mettre à jour les données administratives et utilisateur
     _crudPost.updateAdminData();
     _crudPost.updateUserData();
+    
+    // Afficher les valeurs de débogage
     print(iduser);
     print(isAdministrateur);
-    Get.toNamed(AppRoutes.main);
-  }
+    
+    Get.offAllNamed('/main');
+
+
+}
+
 }

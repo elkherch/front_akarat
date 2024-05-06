@@ -12,7 +12,9 @@ class Annonce extends StatelessWidget {
     return Scaffold(
       appBar: AppBarCustam(title: '7'.tr),
       body: Obx(() {
-        return ListView.builder(
+        return controller.listeData.isEmpty
+                      ?  Center(child: Text('180'.tr))
+        : ListView.builder(
           itemCount: controller.listeData.length,
           itemBuilder: (context, index) {
             final bien = controller.listeData[index];

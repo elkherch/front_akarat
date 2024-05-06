@@ -1,5 +1,4 @@
 // ignore_for_file: camel_case_types, non_constant_identifier_names
-
 class Biens_immobiliers {
   final int? bienID; // Modifier ici
   final String? type_de_bien;
@@ -55,7 +54,6 @@ class Biens_immobiliers {
     date_publication: json['date_publication'],
   );
 }
-
   Map<String, dynamic> toJson() {
     return {
       'bienID': bienID, 
