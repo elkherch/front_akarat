@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 abstract class Informations1Controller extends GetxController {
-  void goToSuivant();
+  void goToSuivant(String selectedCategory, String selectedChambe, String selectedSalon);
   creerCompte();
 }
 
 class Informations1ControllerImp extends Informations1Controller {
-  final TextEditingController typeAnController =TextEditingController();
-  final TextEditingController descrController =TextEditingController();
+  late TextEditingController typeAnController =TextEditingController();
+  late TextEditingController descrController =TextEditingController();
   late List<Biens_immobiliers> data1 = [];
 
   final Myservices myServices = Get.find();
@@ -22,30 +22,27 @@ class Informations1ControllerImp extends Informations1Controller {
   final GlobalKey<FormState> formkeyS = GlobalKey<FormState>();
   late int iduser;
   late List<Biens_immobiliers> data2 = [];
-  String selectedNbBien = '';
-  String selectedNbBien1 ='';
-  String selectedCategory = '';
+ 
   @override
   void onInit() {
-   selectedCategory = '';
-    selectedNbBien1 ='';
-    selectedNbBien = '';
+    typeAnController = TextEditingController();
+    descrController = TextEditingController();
     iduser = myServices.sharedPreferences.getInt("iduser") ?? 0;
     super.onInit();
   }
   @override
   void dispose() {
-   selectedCategory = '';
-    selectedNbBien1 ='';
-    selectedNbBien = '';
     typeAnController.dispose();
     descrController.dispose();
     super.dispose();
   }
   @override
-  void goToSuivant() {
-
-    if (selectedNbBien == 'صالة' || selectedNbBien1 == 'غرفة' || selectedNbBien == 'Salon' || selectedNbBien1 == 'Chambre') {
+  void goToSuivant(String selectedCategory, String selectedChambe, String selectedSalon) {
+     print(selectedCategory);
+     print(selectedChambe);
+     print(selectedSalon);
+    if (selectedChambe == 'صالة' || selectedSalon == 'غرفة' || selectedChambe == 'Salon' || selectedSalon == 'Chambre') {
+      
       Get.toNamed(AppRoutes.publicite2, arguments: {
         'typeAn': typeAnController.text,
         'descr': descrController.text,
@@ -53,21 +50,20 @@ class Informations1ControllerImp extends Informations1Controller {
         'nbB': '0',
         'nbS': '0'
       });
+      typeAnController = TextEditingController();
+      descrController = TextEditingController();
     } else {
       Get.toNamed(AppRoutes.publicite2, arguments: {
         'typeAn': typeAnController.text,
         'descr': descrController.text,
         'categor': selectedCategory,
-        'nbB': selectedNbBien,
-        'nbS': selectedNbBien1
+        'nbB': selectedChambe,
+        'nbS': selectedSalon
       });
-    }
       
-    typeAnController.text ='';
-    descrController.text ='';
-    selectedCategory ='';
-    selectedNbBien = '';
-    selectedNbBien1='';
+      typeAnController = TextEditingController();
+      descrController = TextEditingController();
+    }
   }
 
   @override

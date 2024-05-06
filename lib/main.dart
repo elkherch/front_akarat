@@ -80,7 +80,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: AppRoutes.add_annonce, page: () =>const AddAnnonce()),
         GetPage(name: AppRoutes.parametre, page: () => const Parametre()),
         GetPage(name: AppRoutes.login, page: () =>const Login()),
-        GetPage(name: AppRoutes.publicite, page: () => const Informations1()),
+        GetPage(name: AppRoutes.publicite, page: () =>  Informations1()),
         GetPage(name: AppRoutes.publicite2, page: () => Informations2()),
         GetPage(name: AppRoutes.publicite3, page: () =>const Informations3()),
         GetPage(name: AppRoutes.recherche, page: () =>const ReloultScreen()),

@@ -3,6 +3,7 @@
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:akarat/controllers/biens_immobiliers_controllers.dart';
+import 'package:akarat/views/themes/colors.dart';
 import 'package:akarat/views/widgets/bien_admin.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -53,7 +54,10 @@ class AdminHomeScreen extends StatelessWidget {
               ? Container(
                   color: Colors.black.withOpacity(0.5),
                   child: const Center(
-                    child: CircularProgressIndicator(),
+                    child: CircularProgressIndicator(
+                           color:AppColor.backgroundcolor, 
+                           strokeWidth: 2,
+                      ),
                   ),
                 )
               :const SizedBox.shrink();

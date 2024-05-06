@@ -373,9 +373,9 @@ class biensImmobiliersControllerImp extends biensImmobiliersController{
   }
   @override
   addAnnoce() {
+    update();
     authService.updateUser();
     Get.toNamed(AppRoutes.publicite);
-    
   }
   @override
   annonce() {
