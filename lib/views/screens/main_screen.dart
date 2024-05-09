@@ -131,7 +131,7 @@ class _MainScreenState extends State<MainScreen> {
       case 1:
         return const FavorieScreen();
       case 2:
-        return const MapScreen();
+        return  MapScreen();
       default:
         return const HomeScreen();
     }
